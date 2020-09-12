@@ -34,3 +34,8 @@
 .middleContainer{
   position: relative;
 }
+
+@media (max-width: 1100px){
+  .toggleButton span{display: block;}
+  span.extraText{display: none;}
+}
