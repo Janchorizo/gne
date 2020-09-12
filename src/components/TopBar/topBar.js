@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {HelpModal} from 'components';
+import {HelpModal, UploadModal} from 'components';
 import style from './style.module.css';
 
 
@@ -29,6 +29,7 @@ export default function TopBar({
       <h2>Graphviz Network Explorer</h2>
     </div>
     <div className={style.middleContainer + ' two-third'}>
+      <UploadModal />
       <HelpModal />
     </div>
     <div className={style.optionsContainer}>
