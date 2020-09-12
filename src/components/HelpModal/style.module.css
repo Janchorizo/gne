@@ -1,0 +1,45 @@
+.helpModal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+.helpModal .toggle{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  flex-grow: 0;
+  padding-top: var(--space-sm);
+}
+.helpModal .toggle > button{
+  border: solid 1px var(--primary);
+  color: var(--primary);
+  background: none;
+  height: fit-content;
+}
+.helpModal .toggle > button.toggled{
+  background-color: var(--primary);
+  color: var(--on-primary);
+  padding: .3em .9em var(--space-md) var(--space-lg);
+}
+.helpModal .toggle > button:hover{
+  padding: .3em .9em var(--space-md) var(--space-lg);
+}
+.helpModal .container{
+  min-height: 100px;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border: solid 1px var(--primary);
+  border-top: 0;
+}
+.helpModal .container > *{
+  margin-top: 0;
+  padding-top: 0;
+}
+.helpModal .container.none{
+  display: none;
+}
