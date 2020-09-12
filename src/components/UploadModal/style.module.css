@@ -1,0 +1,46 @@
+.uploadModal{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 50%;
+}
+.uploadModal .toggle{
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 0;
+  padding-top: var(--space-sm);
+}
+.uploadModal .toggle > button{
+  border: solid 1px var(--primary);
+  color: var(--primary);
+  background: none;
+  height: fit-content;
+}
+.uploadModal .toggle > button.toggled{
+  background-color: var(--primary);
+  color: var(--on-primary);
+  padding: .3em .9em var(--space-md) var(--space-lg);
+}
+.uploadModal .toggle > button:hover{
+  padding: .3em .9em var(--space-md) var(--space-lg);
+}
+.uploadModal .container{
+  width: 200%;
+  min-height: 100px;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border: solid 1px var(--primary);
+  border-top: 0;
+}
+.uploadModal .container > *{
+  margin-top: 0;
+  padding-top: 0;
+  padding-left: var(--space-sm);
+}
+.uploadModal .container.none{
+  display: none;
+}
