@@ -31,3 +31,6 @@
   color: var(--on-surface);
   margin-left: var(--space-sm);
 }
+.middleContainer{
+  position: relative;
+}

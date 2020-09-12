@@ -1,5 +1,6 @@
 import React from 'react'
 
+import {HelpModal} from 'components'
 import style from './style.module.css'
 
 
@@ -22,7 +23,8 @@ export default function TopBar({usingLightTheme, setUsingLightTheme, usingEspLan
       <h1>GNE</h1>
       <h2>Graphviz Network Explorer</h2>
     </div>
-    <div className="two-third">
+    <div className={style.middleContainer + " two-third"}>
+      <HelpModal />
     </div>
     <div className={style.optionsContainer}>
       <button className={style.toggleButton} onClick={() => setUsingLightTheme(!usingLightTheme)}>
