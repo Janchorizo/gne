@@ -9,7 +9,7 @@ import darkTheme from 'themes/dark.module.css'
 
 export default function App(props) {
   const [usingLightTheme, setUsingLightTheme] = useState(true)
-  const [lang, setLang] = useState(true)
+  const [usingEspLang, setUsingEspLang] = useState(true)
   const [data, setData] = useState(true)
 
   const cssClasses = [
@@ -18,7 +18,7 @@ export default function App(props) {
   ].join(' ')
   
   return <div className={cssClasses}>
-    <TopBar {... {usingLightTheme, setUsingLightTheme, lang, setLang, setData}} />
+    <TopBar {... {usingLightTheme, setUsingLightTheme, usingEspLang, setUsingEspLang, setData}} />
     <h1>GNE Graphviz Network Explorer</h1>
     </div>
 }
