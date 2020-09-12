@@ -13,4 +13,7 @@
   --on-error: #fff;
   --surface: #ECEFF1;
   --on-surface: #000;
+  --space-sm: .5rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
 }

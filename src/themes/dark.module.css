@@ -11,7 +11,10 @@
   --on-background: #fff;
   --error: #C51162;
   --on-error: #fff;
-  --surface: #ECEFF1;
-  --on-surface: #000;
+  --surface: #34515e;
+  --on-surface: #eceff1;
+  --space-sm: .5rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
 }
 
