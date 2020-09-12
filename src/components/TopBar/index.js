@@ -1,2 +1,2 @@
-import component from './topBar.js'
-export default component
+import component from './topBar.js';
+export default component;

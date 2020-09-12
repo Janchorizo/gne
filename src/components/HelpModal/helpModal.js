@@ -1,22 +1,30 @@
-import React, {useState} from 'react'
+import React, {useState} from 'react';
 
-import style from './style.module.css'
+import style from './style.module.css';
 
 
 export default function HelpModal() {
-  const [shown, show] = useState(false)
+  const [shown, show] = useState(false);
+
+  const containerStyles = [
+    style.container,
+    shown === false ? style.none : '',
+  ].join(' ');
 
   return <div className={style.helpModal}>
     <div className={style.toggle}>
       <button className={shown === false ? '' : style.toggled}
-          onClick={() => show(!shown)}
-        >Help
+        onClick={() => show(!shown)}
+      >Help
       </button>
     </div>
-    <div className={style.container + ' ' + (shown === false ? style.none : '')}>
-      <p>GNE is a tool intended to facilitate the explocartion of Graphviz output network graphs.</p>
+    <div className={containerStyles}>
+      <p>
+        GNE is a tool intended to facilitate the explocartion
+        of Graphviz output network graphs.
+      </p>
     </div>
-  </div>
+  </div>;
 }
 
-HelpModal.propTypes = {}
+HelpModal.propTypes = {};

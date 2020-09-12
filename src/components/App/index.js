@@ -1,2 +1,2 @@
-import component from './app.js'
-export default component
+import component from './app.js';
+export default component;

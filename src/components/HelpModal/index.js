@@ -1,2 +1,2 @@
-import component from './helpModal'
-export default component
+import component from './helpModal';
+export default component;
