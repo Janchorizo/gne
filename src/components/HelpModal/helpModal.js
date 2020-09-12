@@ -14,7 +14,7 @@ export default function HelpModal() {
       </button>
     </div>
     <div className={style.container + ' ' + (shown === false ? style.none : '')}>
-      <p>click on whatever</p>
+      <p>GNE is a tool intended to facilitate the explocartion of Graphviz output network graphs.</p>
     </div>
   </div>
 }

@@ -39,6 +39,7 @@
 .helpModal .container > *{
   margin-top: 0;
   padding-top: 0;
+  padding-left: var(--space-sm);
 }
 .helpModal .container.none{
   display: none;
