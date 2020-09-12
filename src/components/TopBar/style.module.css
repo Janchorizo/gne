@@ -12,7 +12,7 @@
 .topBar h2{
   color: var(--primary-dark);
   margin-left: var(--space-sm);
-  padding-top: 0;
+  padding: 0;
   font-size: 1.1em;
 }
 .topBar .optionsContainer{
@@ -24,9 +24,10 @@
   flex-direction: row;
   justify-content: flex-end;
 }
-.themeToggle{
+.toggleButton, .lightToggleButton{
   flex-grow: 0;
   font-size: small;
-  background-color: var(--primary);
-  color: var(--on-primary);
+  background-color: var(--surface);
+  color: var(--on-surface);
+  margin-left: var(--space-sm);
 }
