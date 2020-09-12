@@ -10,8 +10,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      //common: path.resolve(__dirname, "src/common"),
-      //components: path.resolve(__dirname, "src/components"),
+      common: path.resolve(__dirname, "src/common"),
+      components: path.resolve(__dirname, "src/components"),
+      themes: path.resolve(__dirname, "src/themes"),
     }
   },
   module: {
@@ -22,6 +23,10 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /.*\.svg$/,
+        use: 'url-loader'
       },
       {
         test: /^(?!.*?\.module).*\.css$/,
