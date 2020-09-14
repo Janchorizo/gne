@@ -5,28 +5,28 @@
   height: 100%;
   width: 50%;
 }
-.uploadModal .toggle{
-  height: 100%;
+.uploadModal .dropImage label input{
+  top: 0;
+}
+.uploadModal .dropImage label{
+  background: var(--surface);
+  border: dashed 2px var(--primary);
+  color: var(--on-surface);
+  padding: var(--space-sm);
+}
+.uploadModal .dropImage label:hover{
+  background: var(--primary);
+  color: var(--on-primary);
+  padding-right: var(--space-lg);
+}
+.uploadModal .dropImage{
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: center;
   flex-grow: 0;
-  padding-top: var(--space-sm);
-}
-.uploadModal .toggle > button{
-  border: solid 1px var(--primary);
-  color: var(--primary);
-  background: none;
-  height: fit-content;
-}
-.uploadModal .toggle > button.toggled{
-  background-color: var(--primary);
-  color: var(--on-primary);
-  padding: .3em .9em var(--space-md) var(--space-lg);
-}
-.uploadModal .toggle > button:hover{
-  padding: .3em .9em var(--space-md) var(--space-lg);
+  width: 14em;
+  height: 100%;
+  position: relative;
 }
 .uploadModal .container{
   width: 200%;
@@ -43,4 +43,15 @@
 }
 .uploadModal .container.none{
   display: none;
+}
+.fileDetails{
+  font-size: small;
+  text-align: left;
+}
+.editOptions{
+  background: none;
+  color: var(--primary-dark);
+  font-size: medium;
+  white-space: nowrap;
+  font-style: italic;
 }
