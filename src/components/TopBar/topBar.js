@@ -37,12 +37,12 @@ export default function TopBar({
         className={style.toggleButton}
         onClick={() => setUsingLightTheme(!usingLightTheme)}>
           light
-          <span className={style.extraText}> mode</span>
-          <span className={'mu mu-radio-' + lightIcon}/>
+        <span className={style.extraText}> mode</span>
+        <span className={'mu mu-radio-' + lightIcon}/>
         <hr/>
         <span className={'mu mu-radio-' + darkIcon} />
           dark
-          <span className={style.extraText}> mode</span>
+        <span className={style.extraText}> mode</span>
       </button>
       <button
         className={style.toggleButton}
