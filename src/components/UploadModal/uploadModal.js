@@ -43,7 +43,7 @@ export default function UploadModal() {
         <button
           className={style.editOptions}
           onClick={() => show(true)}>
-            (edit options)
+            <span className="mu mu-cog"></span>
         </button>
       }
     </div>

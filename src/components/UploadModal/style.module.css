@@ -49,11 +49,20 @@
   text-align: left;
 }
 .editOptions{
-  background: none;
-  color: var(--primary-dark);
-  font-size: medium;
-  white-space: nowrap;
-  font-style: italic;
+  background: var(--surface);
+  color: var(--primary);
+  font-size: larger;
+  position: absolute;
+  left: -.5em;
+  bottom: -.3em;
+  border: solid 1px;
+  border-radius: 15px;
+  padding: 0 4px;
+}
+.editOptions:hover{
+  border: solid 1px var(--primary-dark);
+  color: var(--surface);
+  background-color: var(--primary-dark);
 }
 .uploadModal .container table{
   margin: 0 auto;
@@ -95,5 +104,10 @@
   .uploadModal{margin-left: var(--space-md);}
   .uploadModal .container{
     width: calc(200% - var(--space-md));
+  }
+}
+@media (max-width: 1500px){
+  .editOptions{
+    bottom: .5em;
   }
 }
