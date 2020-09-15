@@ -55,3 +55,39 @@
   white-space: nowrap;
   font-style: italic;
 }
+.uploadModal .container table{
+  margin: 0 auto;
+}
+.uploadModal .container table button{
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+}
+.uploadModal .container table th{
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  opacity: .7;
+}
+.actionContainer{
+  display:flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+.actionContainer button{margin: var(--space-sm);}
+.load{
+  background-color: var(--primary);
+  border: solid 1px var(--primary-dark);
+  color: var(--on-primary);
+}
+.load:hover{
+  border: solid 1px var(--primary-dark);
+}
+.cancel{
+  background-color: var(--surface);
+  border: solid 1px var(--error);
+  color: var(--error);
+}
+.cancel:hover{
+  background-color: var(--error);
+  border: solid 1px var(--surface);
+  color: var(--surface);
+}
