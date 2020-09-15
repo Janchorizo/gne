@@ -45,3 +45,9 @@
 .helpModal .container.none{
   display: none;
 }
+@media (max-width: 1100px){
+  .helpModal .container{
+    margin-left: var(--space-md);
+    width: calc(200% - var(--space-md));
+  }
+}

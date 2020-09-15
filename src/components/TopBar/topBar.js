@@ -24,7 +24,7 @@ export default function TopBar({
   const engIcon = usingEspLang === false ? 'on' : 'off';
 
   return <div className={cssClasses}>
-    <div className="">
+    <div className={style.title}>
       <h1>GNE</h1>
       <h2>Graphviz Network Explorer</h2>
     </div>

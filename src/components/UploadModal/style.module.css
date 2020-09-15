@@ -91,3 +91,9 @@
   border: solid 1px var(--surface);
   color: var(--surface);
 }
+@media (max-width: 1100px){
+  .uploadModal{margin-left: var(--space-md);}
+  .uploadModal .container{
+    width: calc(200% - var(--space-md));
+  }
+}

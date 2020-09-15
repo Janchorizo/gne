@@ -34,8 +34,18 @@
 .middleContainer{
   position: relative;
 }
-
+.title{}
 @media (max-width: 1100px){
   .toggleButton span{display: block;}
   span.extraText{display: none;}
+  .title{
+    width: auto;
+    position:absolute;
+    left: 220px;
+    margin-top: var(--space-sm);
+  }
+}
+@media (max-width: 700px){
+  .title h1{ margin-top: var(--space-md);}
+  .title h2{ display: none;}
 }
