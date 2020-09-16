@@ -8,7 +8,6 @@ const compulsoryNodeProperties = ['name', 'ports'];
 const compulsoryLinkProperties = ['source', 'dest'];
 
 function handleUpload(e, setFile, show) {
-  console.log(e.target);
   if (e.target.files.length != 1) {
     return;
   }
