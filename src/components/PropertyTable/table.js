@@ -52,8 +52,8 @@ export default function Table({compulsory, properties, onChange}) {
 
     rows.push(<tr key={p}>
       <td>{p}</td>
-      <InputCell name='xpath' placholder='Xpath' {...{property, properties, onChange}} />
-      <InputCell name='regex' placholder='Regex format' {...{property, properties, onChange}} />
+      <InputCell name='xpath' placeholder='Xpath' {...{property, properties, onChange}} />
+      <InputCell name='regex' placeholder='Regex format' {...{property, properties, onChange}} />
       <td></td>
     </tr>)
   })
@@ -62,9 +62,9 @@ export default function Table({compulsory, properties, onChange}) {
     .filter(p => !compulsory.includes(p.name))
     .forEach(property => {
       rows.push(<tr key={property.name}>
-        <InputCell name='name' placholder='Name' {...{property, properties, onChange}} />
-        <InputCell name='xpath' placholder='Xpath' {...{property, properties, onChange}} />
-        <InputCell name='regex' placholder='Regex format' {...{property, properties, onChange}} />
+        <InputCell name='name' placeholder='Name' {...{property, properties, onChange}} />
+        <InputCell name='xpath' placeholder='Xpath' {...{property, properties, onChange}} />
+        <InputCell name='regex' placeholder='Regex format' {...{property, properties, onChange}} />
         <td>
           <button onClick={() => onPropertyDelete(onChange, properties, property)}>
             <span className="mu mu-delete"></span>
