@@ -10,3 +10,7 @@
   color: var(--on-secondary);
   opacity: .7;
 }
+.table input{
+  background-color: var(--surface);
+  color: var(--secondary-dark);
+}
