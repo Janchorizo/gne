@@ -1,0 +1,16 @@
+{
+    "node": {
+        "xpath": "//node",
+        "properties": [
+            {"name": "name", "xpath": "./name", "regex": ""},
+            {"name": "ports", "xpath": "./port/text()", "regex": ""}
+        ]
+    },
+    "link": {
+        "xpath": "//link",
+        "properties": [
+            {"name": "source", "xpath": "./name/text()", "regex": "/([a-zA-Z0-9]+)&/\\1/"},
+            {"name": "dest", "xpath": "./name/text()", "regex": "/&([a-zA-Z0-9]+)/\\1/"}
+        ]
+    }
+}

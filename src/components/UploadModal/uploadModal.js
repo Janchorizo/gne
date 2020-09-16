@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 
+import predefinedConf from './predefinedConf.json';
 import {PropertyTable} from 'components';
 import style from './style.module.css';
 
@@ -18,8 +19,13 @@ function handleUpload(e, setFile, show) {
 export default function UploadModal() {
   const [shown, show] = useState(false);
   const [file, setFile] = useState(null);
-  const [nodeProperties, setNodeProperties] = useState([])
-  const [linkProperties, setLinkProperties] = useState([])
+  const [nodeProperties, setNodeProperties] = useState([]);
+  const [linkProperties, setLinkProperties] = useState([]);
+
+  const loadDefault = () => {
+    setNodeProperties(predefinedConf.node.properties);
+    setLinkProperties(predefinedConf.link.properties);
+  };
 
   const containerStyles = [
     style.container,
@@ -48,7 +54,7 @@ export default function UploadModal() {
         <button
           className={style.editOptions}
           onClick={() => show(true)}>
-            <span className="mu mu-cog"></span>
+          <span className="mu mu-cog"></span>
         </button>
       }
     </div>
@@ -73,6 +79,9 @@ export default function UploadModal() {
         properties={linkProperties}
         onChange={setLinkProperties} />
       <div className={style.actionContainer}>
+        <button className={style.loadDefault} onClick={() => loadDefault()}>
+          <span className="mu mu-link"></span> Use default conf
+        </button>
         <button className={style.cancel} onClick={() => show(false)}>
           Cancel
         </button>
