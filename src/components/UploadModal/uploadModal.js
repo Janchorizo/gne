@@ -1,7 +1,11 @@
 import React, {useState} from 'react';
 
+import {PropertyTable} from 'components';
 import style from './style.module.css';
 
+
+const compulsoryNodeProperties = ['name', 'ports'];
+const compulsoryLinkProperties = ['source', 'dest'];
 
 function handleUpload(e, setFile, show) {
   console.log(e.target);
@@ -15,6 +19,8 @@ function handleUpload(e, setFile, show) {
 export default function UploadModal() {
   const [shown, show] = useState(false);
   const [file, setFile] = useState(null);
+  const [nodeProperties, setNodeProperties] = useState([])
+  const [linkProperties, setLinkProperties] = useState([])
 
   const containerStyles = [
     style.container,
@@ -53,88 +59,20 @@ export default function UploadModal() {
         Nodes represent a routable device which may,
         optionally, have open ports.
       </p>
-      <table className="primary">
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>
-              <label>Xpath</label>
-            </th>
-            <th>
-              <label>Regex formatting</label>
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Name</td>
-            <td><input type="text" placeholder="Xpath"/></td>
-            <td><input type="text" placeholder="Regex format"/></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Name</td>
-            <td><input type="text" placeholder="Xpath"/></td>
-            <td><input type="text" placeholder="Regex format"/></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><input type="text" placeholder="Property name"/></td>
-            <td><input type="text" placeholder="Xpath"/></td>
-            <td><input type="text" placeholder="Regex format"/></td>
-            <td>
-              <button onClick={() => show(false)}>
-                <span className="mu mu-plus"></span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PropertyTable
+        compulsory={compulsoryNodeProperties}
+        properties={nodeProperties}
+        onChange={setNodeProperties} />
       <h3>Links</h3>
       <p>
         Links represent a connection between two nodes,
         that may be the same.<br/>
         The port will be infered from the direction.
       </p>
-      <table className="primary">
-        <thead>
-          <tr>
-            <th>Property</th>
-            <th>
-              <label>Xpath</label>
-            </th>
-            <th>
-              <label>Regex formatting</label>
-            </th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Source</td>
-            <td><input type="text" placeholder="Xpath"/></td>
-            <td><input type="text" placeholder="Regex format"/></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Dest</td>
-            <td><input type="text" placeholder="Xpath"/></td>
-            <td><input type="text" placeholder="Regex format"/></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><input type="text" placeholder="Property name"/></td>
-            <td><input type="text" placeholder="Xpath"/></td>
-            <td><input type="text" placeholder="Regex format"/></td>
-            <td>
-              <button onClick={() => show(false)}>
-                <span className="mu mu-plus"></span>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <PropertyTable
+        compulsory={compulsoryLinkProperties}
+        properties={linkProperties}
+        onChange={setLinkProperties} />
       <div className={style.actionContainer}>
         <button className={style.cancel} onClick={() => show(false)}>
           Cancel
