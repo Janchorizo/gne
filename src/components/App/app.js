@@ -7,8 +7,11 @@ import lightTheme from 'themes/light.module.css';
 import darkTheme from 'themes/dark.module.css';
 
 
+const now = (new Date()).getHours();
+const isDay = 9 <= now && now <= 20;
+
 export default function App(props) {
-  const [usingLightTheme, setUsingLightTheme] = useState(true);
+  const [usingLightTheme, setUsingLightTheme] = useState(isDay);
   const [usingEspLang, setUsingEspLang] = useState(true);
   const [data, setData] = useState(true);
 
