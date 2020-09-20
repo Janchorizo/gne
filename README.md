@@ -22,7 +22,7 @@ for uploading the SVG file and retrieving the JSON-formated network structure.
 ## How to use it
 
 The webapp uses React for the development and a series of dependencies, all specified in a `package.json` along with
-the `yarn.lock`file in the root directory. The latest version of the app can be used [here](), or you can clone the repository
+the `yarn.lock`file in the root directory. The latest version of the app can be used [here](https://janchorizo.github.io/gne/), or you can clone the repository
 and work with the code.
 
 For development, be sure to have Node installed, along with [NPM](https://www.npmjs.com/) and [Yarn](https://yarnpkg.com/).
