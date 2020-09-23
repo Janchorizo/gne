@@ -93,6 +93,17 @@
   background-color: transparent;
   color: var(--primary);
 }
+.xpathInput{
+  width: 30%;
+  font-size: .8em;
+  margin-left: var(--space-md);
+  background: var(--surface);
+  border: none;
+  border-bottom: solid 2px var(--secondary-dark);
+  border-radius: 0;
+  color: var(--on-surface);
+  font-weight: normal;
+}
 @media (max-width: 1100px){
   .uploadModal{margin-left: var(--space-md);}
   .uploadModal .container{
