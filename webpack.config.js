@@ -1,6 +1,8 @@
 const path = require('path');
+const webpack = require('webpack');
 
 const outputDirectory = './dist'
+const stage = process.env.STAGE === 'dev' ? 'dev' : 'prod';
 
 
 module.exports = {
@@ -47,4 +49,9 @@ module.exports = {
     port: 3000,
   },
   devtool: "cheap-module-source-map",
+  plugins: [
+    new webpack.DefinePlugin({
+      __STAGE__: `"${stage}"`
+    })
+  ]
 };
