@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 
 import {PropertyTable} from 'components';
 import apiParse from './api.js';
@@ -16,30 +17,32 @@ function getUploadHandler(
     nodeProperties,
     linkProperties,
     setData,
-    show){
-  return function () {
+    show) {
+  return function() {
     const nodeConf = JSON.stringify({
       xpath: nodeXpath,
-      properties: nodeProperties
+      properties: nodeProperties,
     });
     const linkConf = JSON.stringify({
       xpath: linkXpath,
-      properties: linkProperties
-    })
+      properties: linkProperties,
+    });
     apiParse(file, nodeConf, linkConf)
-      .then(response => {
-        setData(response);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        .then((response) => {
+          setData(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
 
     show(false);
-  }
+  };
 }
 
 function handleFileDrop(e, setFile, show) {
-  if (e.target.files.length != 1) { return; }
+  if (e.target.files.length != 1) {
+    return;
+  }
   setFile(e.target.files[0]);
   show(true);
 }
@@ -52,13 +55,13 @@ export default function UploadModal({setData}) {
   const [nodeProperties, setNodeProperties] = useState([]);
   const [linkProperties, setLinkProperties] = useState([]);
   const uploadHandler = getUploadHandler(
-    file,
-    nodeXpath,
-    linkXpath,
-    nodeProperties,
-    linkProperties,
-    setData,
-    show);
+      file,
+      nodeXpath,
+      linkXpath,
+      nodeProperties,
+      linkProperties,
+      setData,
+      show);
 
   const loadDefault = () => {
     setNodeXpath(predefinedConf.node.xpath);
@@ -106,7 +109,7 @@ export default function UploadModal({setData}) {
           value={nodeXpath}
           type="text"
           placeholder="Xpath"
-          onChange={e => setNodeXpath(e.target.value)}/>
+          onChange={(e) => setNodeXpath(e.target.value)}/>
       </h3>
       <p>
         Nodes represent a routable device which may,
@@ -123,7 +126,7 @@ export default function UploadModal({setData}) {
           value={linkXpath}
           type="text"
           placeholder="Xpath"
-          onChange={e => setLinkXpath(e.target.value)}/>
+          onChange={(e) => setLinkXpath(e.target.value)}/>
       </h3>
       <p>
         Links represent a connection between two nodes,
@@ -149,4 +152,6 @@ export default function UploadModal({setData}) {
   </div>;
 }
 
-UploadModal.propTypes = {};
+UploadModal.propTypes = {
+  setData: PropTypes.func,
+};

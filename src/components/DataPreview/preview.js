@@ -4,17 +4,19 @@ import PropTypes from 'prop-types';
 import style from './style.module.css';
 
 export default function Preview({data}) {
-  if (data === null) {return '';}
+  if (data === null) {
+    return '';
+  }
 
   const previewCssClasses = [
     style.preview,
   ].join(',');
 
-  const rows = data.nodes.map(d => <tr key={d.address}>
+  const rows = data.nodes.map((d) => <tr key={d.address}>
     <td>
       <div className={style.portContainer}>
-        {d.ports.map(p => <div title={p} className={style.port}></div>)}
-        </div>
+        {d.ports.map((p) => <div key={p} title={p} className={style.port}></div>)}
+      </div>
     </td>
     <td>{d.address}</td>
   </tr>);
@@ -35,5 +37,5 @@ export default function Preview({data}) {
 }
 
 Preview.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
 };
