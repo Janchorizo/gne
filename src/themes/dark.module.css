@@ -1,0 +1,20 @@
+.theme{
+  --primary: #ba68c8;
+  --primary-light: #ee98fb;
+  --primary-dark: #883997;
+  --secondary: #bbdefb;
+  --secondary-light: #eeffff;
+  --secondary-dark: #8aacc8;
+  --on-primary: #000;
+  --on-secondary: #000;
+  --background: url(/static/img/bg_dark.svg) repeat;
+  --on-background: #fff;
+  --error: #e57373;
+  --on-error: #000;
+  --surface: #34515e;
+  --on-surface: #eceff1;
+  --space-sm: .5rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+}
+

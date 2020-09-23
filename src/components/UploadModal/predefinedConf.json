@@ -1,0 +1,16 @@
+{
+    "node":{
+        "xpath": "//svg:g[contains(@class, 'node')]",
+        "properties": [
+            {"name": "address", "xpath": "svg:title/text()", "regex": ""},
+            {"name": "ports", "xpath": "./svg:text[position()>1]", "regex": ""}
+        ]
+    },
+    "link": {
+        "xpath": "//svg:g[contains(@class, 'edge')]",
+        "properties": [
+            {"name": "source", "xpath": "svg:title/text()", "regex": "->.*"},
+            {"name": "dest", "xpath": "svg:title/text()", "regex": ".*->"}
+        ]
+    }
+}
