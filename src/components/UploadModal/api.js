@@ -1,21 +1,17 @@
-window.apiUrl = '__STAGE__' === 'prod'
+const apiUrl = '__STAGE__' === 'prod'
   ? "https://gne-conversion-api.herokuapp.com/parse"
   : "http://localhost:5000/parse";
 
-export default function apiParse(file, nodeProperties, linkProperties) {
+export default function apiParse(file, nodeConf, linkConf) {
   const form = new FormData();
-  console.log(JSON.stringify(nodeProperties))
-  console.log(JSON.stringify(linkProperties))
-  form.append('node', JSON.stringify(nodeProperties));
-  form.append('link', JSON.stringify(linkProperties));
-  form.append('doc', file, 'doc');
+  form.append('node', nodeConf);
+  form.append('link', linkConf);
+  form.append('doc', file, file.filename);
 
   return new Promise((resolve, reject) => {
-    fetch(window.apiUrl, {
+    fetch(apiUrl, {
       "method": "POST",
-      "headers": {
-        "content-type": "multipart/form-data;"
-      }
+      body: form
     })
     .then(response => {
       resolve(response);
