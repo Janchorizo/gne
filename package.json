@@ -9,8 +9,8 @@
   "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --mode production",
-    "dev": "webpack-dev-server --host 0.0.0.0 --mode development --hot",
+    "build": "STAGE=prod webpack --mode production",
+    "dev": "STAGE=dev webpack-dev-server --host 0.0.0.0 --mode development --hot",
     "lint": "eslint \"./src/**/*.js\""
   },
   "dependencies": {
