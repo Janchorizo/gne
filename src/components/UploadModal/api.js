@@ -1,4 +1,4 @@
-const apiUrl = '__STAGE__' === 'prod' ?
+const apiUrl = __STAGE__ === 'prod' ?
   'https://gne-conversion-api.herokuapp.com/parse' :
   'http://localhost:5000/parse';
 
