@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import {TopBar} from 'components';
+import {TopBar, DataPreview} from 'components';
 
 import style from './style.module.css';
 import lightTheme from 'themes/light.module.css';
@@ -13,7 +13,7 @@ const isDay = 9 <= now && now <= 20;
 export default function App(props) {
   const [usingLightTheme, setUsingLightTheme] = useState(isDay);
   const [usingEspLang, setUsingEspLang] = useState(true);
-  const [data, setData] = useState(true);
+  const [data, setData] = useState(null);
 
   const cssClasses = [
     style.app,
@@ -27,7 +27,7 @@ export default function App(props) {
       usingEspLang,
       setUsingEspLang,
       setData}} />
-    <h1>GNE Graphviz Network Explorer</h1>
+    <DataPreview data={data}/>
   </div>;
 }
 
