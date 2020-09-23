@@ -1,0 +1,26 @@
+.preview{
+  max-height: calc(100% - 8em);
+  overflow-y: auto;
+}
+.preview table{
+  margin-left: auto;
+  color: var(--on-background);
+  border-left: solid 1px var(--primary);
+}
+.preview table th{
+  color: var(--on-surface);
+  background-color: var(--surface);
+}
+.port{
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  margin-right: 10px;
+  background-color: var(--secondary-dark);
+}
+.port:hover{
+  background-color: var(--secondary);
+}
+.portContainer{
+  max-width: 9em;
+}
