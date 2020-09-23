@@ -14,7 +14,7 @@ export default function apiParse(file, nodeConf, linkConf) {
       body: form
     })
     .then(response => {
-      resolve(response);
+      response.json().then(json => resolve(json))
     })
     .catch(err => {
       reject(err);

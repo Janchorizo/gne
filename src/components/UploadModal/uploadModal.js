@@ -15,6 +15,7 @@ function getUploadHandler(
     linkXpath,
     nodeProperties,
     linkProperties,
+    setData,
     show){
   return function () {
     const nodeConf = JSON.stringify({
@@ -27,7 +28,7 @@ function getUploadHandler(
     })
     apiParse(file, nodeConf, linkConf)
       .then(response => {
-
+        setData(response);
       })
       .catch(err => {
         console.log(err);
@@ -43,7 +44,7 @@ function handleFileDrop(e, setFile, show) {
   show(true);
 }
 
-export default function UploadModal() {
+export default function UploadModal({setData}) {
   const [shown, show] = useState(false);
   const [file, setFile] = useState(null);
   const [nodeXpath, setNodeXpath] = useState('');
@@ -56,6 +57,7 @@ export default function UploadModal() {
     linkXpath,
     nodeProperties,
     linkProperties,
+    setData,
     show);
 
   const loadDefault = () => {
