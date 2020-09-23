@@ -1,16 +1,16 @@
 {
-    "node": {
-        "xpath": "//node",
+    "node":{
+        "xpath": "//svg:g[contains(@class, 'node')]",
         "properties": [
-            {"name": "name", "xpath": "./name", "regex": ""},
-            {"name": "ports", "xpath": "./port/text()", "regex": ""}
+            {"name": "address", "xpath": "svg:title/text()", "regex": ""},
+            {"name": "ports", "xpath": "./svg:text[position()>1]", "regex": ""}
         ]
     },
     "link": {
-        "xpath": "//link",
+        "xpath": "//svg:g[contains(@class, 'edge')]",
         "properties": [
-            {"name": "source", "xpath": "./name/text()", "regex": "/([a-zA-Z0-9]+)&/\\1/"},
-            {"name": "dest", "xpath": "./name/text()", "regex": "/&([a-zA-Z0-9]+)/\\1/"}
+            {"name": "source", "xpath": "svg:title/text()", "regex": "->.*"},
+            {"name": "dest", "xpath": "svg:title/text()", "regex": ".*->"}
         ]
     }
 }
