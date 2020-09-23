@@ -29,7 +29,7 @@ export default function TopBar({
       <h2>Graphviz Network Explorer</h2>
     </div>
     <div className={style.middleContainer + ' two-third'}>
-      <UploadModal />
+      <UploadModal setData={setData}/>
       <HelpModal />
     </div>
     <div className={style.optionsContainer}>
