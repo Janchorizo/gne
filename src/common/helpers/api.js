@@ -2,7 +2,7 @@ const apiUrl = __STAGE__ === 'prod' ?
   'https://gne-conversion-api.herokuapp.com/parse' :
   'http://localhost:5000/parse';
 
-export default function apiParse(file, nodeConf, linkConf) {
+export default {parse: function apiParse(file, nodeConf, linkConf) {
   const form = new FormData();
   form.append('node', nodeConf);
   form.append('link', linkConf);
@@ -20,4 +20,4 @@ export default function apiParse(file, nodeConf, linkConf) {
           reject(err);
         });
   });
-}
+}}

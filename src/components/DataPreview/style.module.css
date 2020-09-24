@@ -6,10 +6,17 @@
   margin-left: auto;
   color: var(--on-background);
   border-left: solid 1px var(--primary);
+  padding-right: var(--space-lg);
 }
 .preview table th{
   color: var(--on-surface);
   background-color: var(--surface);
+}
+.preview table th:last-of-type{
+  padding-right: 6em;
+}
+.preview table td{
+  padding-right: var(--space-sm);
 }
 .port{
   display: inline-block;
@@ -23,4 +30,64 @@
 }
 .portContainer{
   max-width: 9em;
+}
+.portTraffic{
+  display: flex;
+  width: 190px;
+  overflow-x: auto;
+  padding-bottom: var(--space-sm);
+}
+.portTraffic .portContainer{
+  display: flex;
+  align-items: center;
+  margin-right: var(--space-md);
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+  color: var(--primary-dark);
+  background: var(--secondary-light);
+  border-radius: var(--space-sm);
+}
+/*.portTraffic .portContainer:nth-of-type(2n) {
+  background: var(--primary-dark);
+  color: var(--on-primary);
+}*/
+.portTraffic .portName{
+  margin-right: var(--space-sm);
+}
+.portTraffic .trafficCount{
+  display: inline-flex;
+  flex-direction: column;
+}
+.portTraffic .trafficCount span{
+  white-space: nowrap;
+}
+
+.preview table.collapsed th,
+.preview table.collapsed td{
+  display: none;
+}
+.preview table.collapsed th:nth-of-type(1),
+.preview table.collapsed td:nth-of-type(1),
+.preview table.collapsed th:nth-of-type(2),
+.preview table.collapsed td:nth-of-type(2){
+  display: table-cell;
+}
+.preview .toggle button{
+  width: 100%;
+  text-align: left;
+  background-color: transparent;
+  color: var(--primary);
+  border-bottom: solid 1px var(--primary-light);
+  border-radius: 0;
+  padding-left: 0;
+}
+@media (max-width: 1100px){
+  .preview table.expanded{width: 100%;}
+  .preview table.collapsed th:first-of-type,
+  .preview table.collapsed td:first-of-type{
+    display: none;
+  }
+  .preview table.collapsed thead > tr:first-child > th{
+    display: table-cell;
+  }
 }

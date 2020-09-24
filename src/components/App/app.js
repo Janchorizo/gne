@@ -1,6 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import {TopBar, DataPreview} from 'components';
+import {processNetwork} from 'common/helpers';
+import expectedResponse from 'common/network.json';
 
 import style from './style.module.css';
 import lightTheme from 'themes/light.module.css';
@@ -14,6 +16,9 @@ export default function App(props) {
   const [usingLightTheme, setUsingLightTheme] = useState(isDay);
   const [usingEspLang, setUsingEspLang] = useState(true);
   const [data, setData] = useState(null);
+
+  useEffect(() => {processNetwork(expectedResponse).then(setData)}, []);
+  console.log(data);
 
   const cssClasses = [
     style.app,
