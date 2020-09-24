@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import style from './style.module.css';
@@ -22,6 +22,8 @@ export default function Preview({data}) {
   if (data === null) {
     return '';
   }
+
+  const [expanded, setExpanded] = useState(false);
 
   const previewCssClasses = [
     style.preview,
@@ -52,8 +54,24 @@ export default function Preview({data}) {
   });
 
   return <div className={previewCssClasses}>
-    <table className="primary">
+    <table className={expanded === false ? style.collapsed : "primary " + style.expanded}>
       <thead>
+        <tr>
+          {expanded === false
+            ? <th
+                className={style.toggle}
+                onClick={()=> setExpanded(true)}
+                colSpan="5">
+                  <button>❰ Expand table</button>
+              </th>
+            : <th
+                className={style.toggle}
+                onClick={()=> setExpanded(false)}
+                colSpan="5">
+                  <button>Collapse table ❱</button>
+              </th>
+          }
+        </tr>
         <tr>
           <th>Ports</th>
           <th>Address</th>
