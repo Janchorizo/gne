@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {PropertyTable} from 'components';
-import apiParse from './api.js';
+import {API, processNetwork} from 'common/helpers';
 import predefinedConf from './predefinedConf.json';
 import style from './style.module.css';
 
@@ -27,10 +27,9 @@ function getUploadHandler(
       xpath: linkXpath,
       properties: linkProperties,
     });
-    apiParse(file, nodeConf, linkConf)
-        .then((response) => {
-          setData(response);
-        })
+    API.parse(file, nodeConf, linkConf)
+        .then(processNetwork)
+        .then(response => setData(response))
         .catch((err) => {
           console.log(err);
         });
