@@ -15,7 +15,7 @@ export default function Preview({data}) {
   const rows = data.nodes.map((d) => <tr key={d.address}>
     <td>
       <div className={style.portContainer}>
-        {d.ports.map((p) => <div key={p} title={p} className={style.port}></div>)}
+        {Object.keys(d.ports).map((p) => <div key={p} title={p} className={style.port}></div>)}
       </div>
     </td>
     <td>{d.address}</td>
