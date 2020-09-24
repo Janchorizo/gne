@@ -8,7 +8,7 @@ export function isIPv4 (address) {
   return ipv4Format.test(address);
 }
 export function getIPv4Address (address) {
-  return ipv4AddressFormat.test(address)[1];
+  return ipv4AddressFormat.exec(address)[1];
 }
 export function getIPv4Port (address) {
   const matched = ipv4PortFormat.exec(address);
