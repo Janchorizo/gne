@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import style from './style.module.css';
-
+import * as cells from './tableCells.js';
 
 export default function Table({data}) {
   if (data === null) {
@@ -10,6 +10,9 @@ export default function Table({data}) {
   }
 
   const [expanded, setExpanded] = useState(false);
+  const toggleMessage = expanded === true
+    ? 'Collapse table ❱'
+    : '❰ Expand table';
 
   const tableCssClasses = [
     'primary',
@@ -17,8 +20,35 @@ export default function Table({data}) {
     expanded === false ? style.collapsed : style.expanded
   ].join(' ');
 
-  return <table className={tableCssClasses}>
+  const rows = data.nodes.map(node =>
+    <tr key={node.address}>
+      <cells.PortsCell node={node}/>
+      <cells.AddressCell node={node}/>
+      <cells.TrafficCell node={node}/>
+      <cells.PortTrafficCell node={node}/>
+    </tr>
+  );
 
+  return <table className={tableCssClasses}>
+    <thead>
+      <tr>
+        <th
+          className={style.toggle}
+          onClick={()=> setExpanded(!expanded)}
+          colSpan="5">
+            <button>{toggleMessage}</button>
+        </th>
+      </tr>
+      <tr>
+        <th className={style.portsCell}>Ports</th>
+        <th>Address</th>
+        <th className={style.trafficCell}>Traffic</th>
+        <th className={style.portTrafficCell}>Port traffic</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows}
+    </tbody>
   </table>
 }
 
