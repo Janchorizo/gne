@@ -2,9 +2,10 @@
   background-color: var(--surface);
   color: var(--on-surface);
   border-bottom: solid 1px var(--primary);
+  z-index: 1;
 }
 .topBar h1{
-  color: var(--primary-dark);
+  color: var(--primary);
   margin-left: var(--space-sm);
   margin-top: var(--space-sm);
   padding: 0;
