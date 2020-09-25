@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
+import {ClipoardUtility} from 'common/helpers';
 import style from './style.module.css';
 
 function PortTraffic({ports}) {
   return <div className={style.portTraffic}>
-    {Object.entries(ports).map(([port, connections]) => {
+    {ports.map(([port, connections]) => {
       return <div key={port} className={style.portContainer}>
-        <span className={style.portName}>{port}</span>
+        <span className={style.portName}><b>{port}</b></span>
         <div className={style.trafficCount}>
           <span>In: {connections.in.length}</span>
           <span>Out: {connections.out.length}</span>
-          <span>Total: {connections.in.length + connections.out.length}</span>
+          <span><b>Total: {connections.in.length + connections.out.length}</b></span>
         </div>
       </div>
     })}
@@ -34,21 +35,33 @@ export default function Preview({data}) {
       Object.values(d.ports).reduce((ac, dc) => ac + dc.in.length, 0),
       Object.values(d.ports).reduce((ac, dc) => ac + dc.out.length, 0)
     ];
+    const portIsUsed = port => port.in.length + port.out.length >0;
+
     return <tr key={d.address}>
       <td>
         <div className={style.portContainer}>
-          {Object.keys(d.ports).map((p) => <div key={p} title={p} className={style.port}></div>)}
+          {Object.keys(d.ports).map((p) => <div 
+            data-tooltip={`Port ${p}. CLick to copy.`}
+            onClick={() => ClipoardUtility.copy(p)}
+            key={p}
+            className={style.port}></div>)}
         </div>
       </td>
-      <td>{d.address}</td>
-      <td>{d.type}</td>
+      <td>
+        <b>{d.address} <span 
+                          data-tooltip="Copy address to clipboard"
+                          className={style.clipboard}
+                          onClick={() => ClipoardUtility.copy(d.address)}>📋</span>
+        </b>
+        <span className={style.addressType}>{d.type}</span>
+      </td>
       <td>
         In: {d.in.length + inByPortConnections}<br/>
         Out: {d.out.length + outByPortConnections}<br/>
-        Total: {d.in.length + inByPortConnections + d.out.length + outByPortConnections}
+        <b>Total: {d.in.length + inByPortConnections + d.out.length + outByPortConnections}</b>
       </td>
       <td>
-        <PortTraffic ports={d.ports}/>
+        <PortTraffic ports={Object.entries(d.ports).filter(p => portIsUsed(p[1]))}/>
       </td>
     </tr>
   });
@@ -75,8 +88,7 @@ export default function Preview({data}) {
         <tr>
           <th>Ports</th>
           <th>Address</th>
-          <th>Address Type</th>
-          <th>Degree</th>
+          <th>Traffic</th>
           <th>Port Traffic</th>
         </tr>
       </thead>
