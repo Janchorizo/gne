@@ -40,8 +40,10 @@ export default function Preview({data}) {
           {Object.keys(d.ports).map((p) => <div key={p} title={p} className={style.port}></div>)}
         </div>
       </td>
-      <td>{d.address}</td>
-      <td>{d.type}</td>
+      <td>
+        {d.address}
+        <span className={style.addressType}>{d.type}</span>
+      </td>
       <td>
         In: {d.in.length + inByPortConnections}<br/>
         Out: {d.out.length + outByPortConnections}<br/>
@@ -75,8 +77,7 @@ export default function Preview({data}) {
         <tr>
           <th>Ports</th>
           <th>Address</th>
-          <th>Address Type</th>
-          <th>Degree</th>
+          <th>Traffic</th>
           <th>Port Traffic</th>
         </tr>
       </thead>
