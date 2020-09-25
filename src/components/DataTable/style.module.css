@@ -4,8 +4,8 @@
 .collapsed .portTrafficCell{
 display: none;
 }
-.expanded{
-
+.table th i{
+font-weight: normal;
 }
 .table{
 margin-left: auto;

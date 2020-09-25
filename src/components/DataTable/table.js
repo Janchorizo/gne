@@ -41,8 +41,8 @@ export default function Table({data}) {
       </tr>
       <tr>
         <th className={style.portsCell}>Ports</th>
-        <th>Address</th>
-        <th className={style.trafficCell}>Traffic</th>
+        <th>Address <i>({data.nodes.length})</i></th>
+        <th className={style.trafficCell}>Traffic <i>({data.links.length})</i></th>
         <th className={style.portTrafficCell}>Port traffic</th>
       </tr>
     </thead>
