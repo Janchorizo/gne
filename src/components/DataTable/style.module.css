@@ -1,5 +1,12 @@
 .table{
 }
+.table tbody tr:hover{
+color: var(--on-secondary);
+background-color: var(--secondary-light);
+}
+.table tbody tr:hover *{
+color: var(--on-secondary);
+}
 .collapsed .trafficCell,
 .collapsed .portTrafficCell{
 display: none;
