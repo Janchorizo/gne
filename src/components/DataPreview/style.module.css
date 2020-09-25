@@ -19,6 +19,7 @@
   padding-right: var(--space-sm);
 }
 .port{
+  cursor: pointer;
   display: inline-block;
   height: 15px;
   width: 15px;
@@ -90,6 +91,9 @@
 }
 .preview table.collapsed b{
   font-weight: normal;
+}
+.clipboard{
+  cursor: pointer;
 }
 @media (max-width: 1100px){
   .preview table.expanded{width: 100%;}

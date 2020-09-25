@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
+import {ClipoardUtility} from 'common/helpers';
 import style from './style.module.css';
 
 function PortTraffic({ports}) {
@@ -39,11 +40,19 @@ export default function Preview({data}) {
     return <tr key={d.address}>
       <td>
         <div className={style.portContainer}>
-          {Object.keys(d.ports).map((p) => <div key={p} title={p} className={style.port}></div>)}
+          {Object.keys(d.ports).map((p) => <div 
+            data-tooltip={`Port ${p}. CLick to copy.`}
+            onClick={() => ClipoardUtility.copy(p)}
+            key={p}
+            className={style.port}></div>)}
         </div>
       </td>
       <td>
-        <b>{d.address}</b>
+        <b>{d.address} <span 
+                          data-tooltip="Copy address to clipboard"
+                          className={style.clipboard}
+                          onClick={() => ClipoardUtility.copy(d.address)}>📋</span>
+        </b>
         <span className={style.addressType}>{d.type}</span>
       </td>
       <td>
