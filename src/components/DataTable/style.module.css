@@ -16,3 +16,9 @@ border-bottom: solid 1px var(--primary-light);
 border-radius: 0;
 padding-left: 0;
 }
+@media (max-width: 1100px){
+    table.expanded{width: 100%;}
+    .collapsed .portsCell{
+    display: none;
+    }
+}
