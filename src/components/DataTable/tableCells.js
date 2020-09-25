@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import {ClipboardCopy} from 'common/components';
+import {ClipoardUtility} from 'common/helpers';
 import style from './style.module.css';
 
 export function PortTrafficCell({node}) {
