@@ -5,7 +5,7 @@ import style from './style.module.css';
 
 function PortTraffic({ports}) {
   return <div className={style.portTraffic}>
-    {Object.entries(ports).map(([port, connections]) => {
+    {ports.map(([port, connections]) => {
       return <div key={port} className={style.portContainer}>
         <span className={style.portName}><b>{port}</b></span>
         <div className={style.trafficCount}>
@@ -34,6 +34,8 @@ export default function Preview({data}) {
       Object.values(d.ports).reduce((ac, dc) => ac + dc.in.length, 0),
       Object.values(d.ports).reduce((ac, dc) => ac + dc.out.length, 0)
     ];
+    const portIsUsed = port => port.in.length + port.out.length >0;
+
     return <tr key={d.address}>
       <td>
         <div className={style.portContainer}>
@@ -50,7 +52,7 @@ export default function Preview({data}) {
         <b>Total: {d.in.length + inByPortConnections + d.out.length + outByPortConnections}</b>
       </td>
       <td>
-        <PortTraffic ports={d.ports}/>
+        <PortTraffic ports={Object.entries(d.ports).filter(p => portIsUsed(p[1]))}/>
       </td>
     </tr>
   });
