@@ -7,11 +7,11 @@ function PortTraffic({ports}) {
   return <div className={style.portTraffic}>
     {Object.entries(ports).map(([port, connections]) => {
       return <div key={port} className={style.portContainer}>
-        <span className={style.portName}>{port}</span>
+        <span className={style.portName}><b>{port}</b></span>
         <div className={style.trafficCount}>
           <span>In: {connections.in.length}</span>
           <span>Out: {connections.out.length}</span>
-          <span>Total: {connections.in.length + connections.out.length}</span>
+          <span><b>Total: {connections.in.length + connections.out.length}</b></span>
         </div>
       </div>
     })}
@@ -41,13 +41,13 @@ export default function Preview({data}) {
         </div>
       </td>
       <td>
-        {d.address}
+        <b>{d.address}</b>
         <span className={style.addressType}>{d.type}</span>
       </td>
       <td>
         In: {d.in.length + inByPortConnections}<br/>
         Out: {d.out.length + outByPortConnections}<br/>
-        Total: {d.in.length + inByPortConnections + d.out.length + outByPortConnections}
+        <b>Total: {d.in.length + inByPortConnections + d.out.length + outByPortConnections}</b>
       </td>
       <td>
         <PortTraffic ports={d.ports}/>
