@@ -1,5 +1,3 @@
-.table{
-}
 .table tbody tr:hover{
 color: var(--on-secondary);
 background-color: var(--secondary-light);
