@@ -23,6 +23,9 @@ padding-right: 6em;
 .table td{
 padding-right: var(--space-sm);
 }
+span.trafficIcon{
+font-size: 1.3em;
+}
 .port{
 cursor: pointer;
 display: inline-block;
