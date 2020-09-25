@@ -8,7 +8,9 @@ import style from './style.module.css';
 export default function Workspace({data}) {
   return <div className={style.workspace}>
     <div></div>
-    <DataTable data={data}/>
+    <div className={style.tableContainer}>
+      <DataTable data={data}/>
+    </div>
   </div>
 }
 

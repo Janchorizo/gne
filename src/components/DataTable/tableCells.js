@@ -34,12 +34,11 @@ export function TrafficCell({node}) {
   const outgoing = node.out.length + outByPortConnections;
   return(
     <td className={style.trafficCell}>
+      <b>Total: {incoming + outgoing}</b><br/>
       <span className={style.trafficIcon}>⤓ </span>
       {incoming}
       <span className={style.trafficIcon}> ⤒ </span>
       {outgoing}
-      <br/>
-      <b>Total: {incoming + outgoing}</b>
     </td>);
 }
 
@@ -60,13 +59,15 @@ function PortTraffic({ports}) {
   return <div className={style.portTraffic}>
     {ports.map(([port, connections]) => {
       return <div key={port} className={style.portContainer}>
-        <span className={style.portName}><b>{port}</b></span>
+        <span className={style.portName}>
+          <b>{port}<ClipboardCopy msg="Click to copy" content={port} extraClassName="tooltip-right"/></b>
+        </span>
         <div className={style.trafficCount}>
             <span>
               <span className={style.trafficIcon}>⤓ </span>
               {connections.in.length}
               <span className={style.trafficIcon}> ⤒ </span>
-              {connections.out.length} <br/>
+              {connections.out.length}
             </span>
           <span className="none">
             <b>Total: {connections.in.length + connections.out.length}</b>
