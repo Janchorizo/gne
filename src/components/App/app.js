@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 
-import {TopBar, DataPreview} from 'components';
-//import {processNetwork} from 'common/helpers';
-//import expectedResponse from 'common/network.json';
+import {TopBar, Workspace} from 'components';
+import {processNetwork} from 'common/helpers';
+import expectedResponse from 'common/network.json';
 
 import style from './style.module.css';
 import lightTheme from 'themes/light.module.css';
@@ -17,7 +17,7 @@ export default function App(props) {
   const [usingEspLang, setUsingEspLang] = useState(true);
   const [data, setData] = useState(null);
 
-//  useEffect(() => {processNetwork(expectedResponse).then(setData)}, []);
+useEffect(() => {processNetwork(expectedResponse).then(setData)}, []);
 //  console.log(data);
 
   const cssClasses = [
@@ -32,7 +32,7 @@ export default function App(props) {
       usingEspLang,
       setUsingEspLang,
       setData}} />
-    <DataPreview data={data}/>
+    <Workspace data={data}/>
   </div>;
 }
 

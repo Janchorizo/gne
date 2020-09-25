@@ -4,3 +4,4 @@ export {default as HelpModal} from './HelpModal';
 export {default as UploadModal} from './UploadModal';
 export {default as PropertyTable} from './PropertyTable';
 export {default as DataPreview} from './DataPreview';
+export {default as Workspace} from './Workspace';
