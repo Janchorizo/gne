@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {ClipoardUtility} from 'common/helpers';
 import style from './style.module.css';
 
+
 /**
  * Clipboard-icon button for copying to the system clipboard.
  * Additional CSS classes [tooltip-top, tooltip-right, tooltip-left]
