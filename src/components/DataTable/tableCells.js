@@ -1,10 +1,16 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {ClipboardCopy} from 'common/components';
 import {ClipoardUtility} from 'common/helpers';
 import style from './style.module.css';
 
+
+/**
+ * Table cell with a list of used ports and their traffic.
+ * @param   {object} node A network node holding the address, type and ports.
+ * @return {React.Component} A react component.
+ */
 export function PortTrafficCell({node}) {
   const portIsUsed = (port) => port.in.length + port.out.length >0;
   const usedPorts = Object.entries(node.ports).filter((p) => portIsUsed(p[1]));
@@ -14,6 +20,11 @@ export function PortTrafficCell({node}) {
     </td>);
 }
 
+/**
+ * Table cell with the node's address and address type.
+ * @param   {object} node A network node holding the address, type and ports.
+ * @return {React.Component} A react component.
+ */
 export function AddressCell({node}) {
   return (
     <td className={style.addressCell}>
@@ -25,6 +36,11 @@ export function AddressCell({node}) {
     </td>);
 }
 
+/**
+ * Table cell with the network's traffic.
+ * @param   {object} node A network node holding the address, type and ports.
+ * @return {React.Component} A react component.
+ */
 export function TrafficCell({node}) {
   const [inByPortConnections, outByPortConnections] = [
     Object.values(node.ports).reduce((ac, dc) => ac + dc.in.length, 0),
@@ -42,6 +58,11 @@ export function TrafficCell({node}) {
     </td>);
 }
 
+/**
+ * Table cell holding each open port for the node.
+ * @param   {object} node A network node holding the address, type and ports.
+ * @return {React.Component} A react component.
+ */
 export function PortsCell({node}) {
   return (
     <td className={style.portsCell}>
@@ -55,12 +76,23 @@ export function PortsCell({node}) {
     </td>);
 }
 
+/**
+ * A list of cards with port traffic information.
+ * @param   {list} ports A list of ports with in and out connections.
+ * @return {React.Component} A react component.
+ */
 function PortTraffic({ports}) {
   return <div className={style.portTraffic}>
     {ports.map(([port, connections]) => {
       return <div key={port} className={style.portContainer}>
         <span className={style.portName}>
-          <b>{port}<ClipboardCopy msg="Click to copy" content={port} extraClassName="tooltip-right"/></b>
+          <b>
+            {port}
+            <ClipboardCopy
+              msg="Click to copy"
+              content={port}
+              extraClassName="tooltip-right"/>
+          </b>
         </span>
         <div className={style.trafficCount}>
           <span>
@@ -77,3 +109,23 @@ function PortTraffic({ports}) {
     })}
   </div>;
 }
+
+PortTrafficCell.propTypes = {
+  node: PropTypes.object,
+};
+
+AddressCell.propTypes = {
+  node: PropTypes.object,
+};
+
+TrafficCell.propTypes = {
+  node: PropTypes.object,
+};
+
+PortsCell.propTypes = {
+  node: PropTypes.object,
+};
+
+PortTraffic.propTypes = {
+  ports: PropTypes.listOf(PropTypes.object),
+};
