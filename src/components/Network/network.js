@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
+import render from './vis';
 import style from './style.module.css';
 
 
@@ -14,8 +15,14 @@ export default function Network({data}) {
     return '';
   }
 
-  return <svg className={style.network}>
+  const svgRef = useRef();
+  useEffect(
+      () => {
+        render(svgRef.current, data);
+      }, // effect
+      [svgRef.current, data]); //
 
+  return <svg ref={svgRef} className={style.network}>
   </svg>;
 }
 
