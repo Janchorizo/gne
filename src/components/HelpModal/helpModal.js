@@ -3,6 +3,10 @@ import React, {useState} from 'react';
 import style from './style.module.css';
 
 
+/**
+ * Help modal for the top bar.
+ * @return {React.Component} A react component.
+ */
 export default function HelpModal() {
   const [shown, show] = useState(false);
 
