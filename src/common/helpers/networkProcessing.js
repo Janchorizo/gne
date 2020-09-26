@@ -1,5 +1,10 @@
 import * as IP from './ip.js';
 
+/**
+ * Creates a JS object with the node address, type, and ports.
+ * @param   {object} node Object containing the node description.
+ * @return  {object} The processed node
+ */
 function getNodeWithType(node) {
   let type = 'Null';
   if (IP.isIPv4(node.address)) {
@@ -27,6 +32,11 @@ function getNodeWithType(node) {
   };
 }
 
+/**
+ * Creates a JS object with the link source and dest address and ports.
+ * @param   {object} link Object containing the link description.
+ * @return  {object} The processed link
+ */
 function getLinkWithPorts(link) {
   let isIPv4 = IP.isIPv4(link.source);
   const sourceAddress = isIPv4 === true ?
@@ -52,8 +62,13 @@ function getLinkWithPorts(link) {
   };
 }
 
+/**
+ * Creates a curated version of the network with address types set,
+ * and links associated with address and ports.
+ * @param   {object} json Retrieved data from the API.
+ * @return  {object} The processed network data
+ */
 export default function(json) {
-  window.IP_ = IP;
   const nodes = Object.fromEntries(
       json.nodes.map((node) => [node.address, getNodeWithType(node)]));
 
@@ -62,22 +77,24 @@ export default function(json) {
 
     // update port connections in node entry
     if (nodes?.[withPorts.sourceAddress] !== undefined) {
+      const source = nodes[withPorts.sourceAddress];
       if (withPorts.sourcePort === '') {
-        nodes?.[withPorts.sourceAddress].out.push(i);
-      } else if (nodes[withPorts.sourceAddress].ports?.[withPorts.sourcePort] !== undefined) {
-        nodes[withPorts.sourceAddress].ports[withPorts.sourcePort].out.push(i);
+        source.out.push(i);
+      } else if (source?.[withPorts.sourcePort] !== undefined) {
+        source.ports[withPorts.sourcePort].out.push(i);
       } else {
-        nodes?.[withPorts.sourceAddress].out.push(i);
+        source.out.push(i);
       }
     }
 
     if (nodes?.[withPorts.destAddress] !== undefined) {
+      const dest = nodes[withPorts.destAddress];
       if (withPorts.destPort === '') {
-        nodes?.[withPorts.destAddress].in.push(i);
-      } else if (nodes[withPorts.destAddress].ports?.[withPorts.destPort] !== undefined) {
-        nodes[withPorts.destAddress].ports[withPorts.destPort].in.push(i);
+        dest.in.push(i);
+      } else if (dest?.[withPorts.destPort] !== undefined) {
+        dest.ports[withPorts.destPort].in.push(i);
       } else {
-        nodes?.[withPorts.destAddress].in.push(i);
+        dest.in.push(i);
       }
     }
 
