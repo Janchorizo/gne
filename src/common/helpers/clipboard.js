@@ -1,3 +1,11 @@
+/**
+ * Source from: view-source:https://deanmarktaylor.github.io/clipboard-test/
+ */
+
+/**
+ * Fallback method to copy text using a textarea HTML element.
+ * @param   {string} text Text to be copied.
+ */
 function fallbackCopyTextToClipboard(text) {
   const textArea = document.createElement('textarea');
   textArea.value = text;
@@ -21,6 +29,11 @@ function fallbackCopyTextToClipboard(text) {
 
   document.body.removeChild(textArea);
 }
+
+/**
+ * Copies text to system's clipboard using the clipboard API or a fallback.
+ * @param   {string} text Text to be copied.
+ */
 function copyTextToClipboard(text) {
   if (!navigator.clipboard) {
     fallbackCopyTextToClipboard(text);

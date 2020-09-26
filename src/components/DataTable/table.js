@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import style from './style.module.css';
 import * as cells from './tableCells.js';
 
+
+/**
+ * Collapsible table showing network details.
+ * @param   {object} data The network.
+ * @return {React.Component} A react component.
+ */
 export default function Table({data}) {
   if (data === null) {
     return '';
@@ -42,7 +48,9 @@ export default function Table({data}) {
       <tr>
         <th className={style.portsCell}>Ports</th>
         <th>Address <i>({data.nodes.length})</i></th>
-        <th className={style.trafficCell}>Traffic <i>({data.links.length})</i></th>
+        <th className={style.trafficCell}>
+          Traffic <i>({data.links.length})</i>
+        </th>
         <th className={style.portTrafficCell}>Port traffic</th>
       </tr>
     </thead>

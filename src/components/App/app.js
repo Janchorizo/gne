@@ -12,7 +12,11 @@ import darkTheme from 'themes/dark.module.css';
 const now = (new Date()).getHours();
 const isDay = 9 <= now && now <= 20;
 
-export default function App(props) {
+/**
+ * Top level root node for the app.
+ * @return {React.Component} A react component.
+ */
+export default function App() {
   const [usingLightTheme, setUsingLightTheme] = useState(isDay);
   const [usingEspLang, setUsingEspLang] = useState(true);
   const [data, setData] = useState(null);
