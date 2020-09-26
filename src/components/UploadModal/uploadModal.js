@@ -10,6 +10,17 @@ import style from './style.module.css';
 const compulsoryNodeProperties = ['address', 'ports'];
 const compulsoryLinkProperties = ['source', 'dest'];
 
+/**
+ * Creates a click event handler for uploading data.
+ * @param   {File} file SVG file with the network.
+ * @param   {string} nodeXpath Xpath string for the nodes.
+ * @param   {string} linkXpath Xpath string for the links.
+ * @param   {list} nodeProperties List of xpath and regex for node properties.
+ * @param   {list} linkProperties List of xpath and regex for link properties.
+ * @param   {function} setData Function to set the retrieved data.
+ * @param   {function} show Function to set the modal visibility.
+ * @return  {Function} The event callback
+ */
 function getUploadHandler(
     file,
     nodeXpath,
@@ -38,6 +49,12 @@ function getUploadHandler(
   };
 }
 
+/**
+ * Sets the target file and opens the upload modal.
+ * @param   {Event} e File change event.
+ * @param   {function} setFile Function for setting the file.
+ * @param   {function} show Function to set the modal visibility.
+ */
 function handleFileDrop(e, setFile, show) {
   if (e.target.files.length != 1) {
     return;
@@ -46,6 +63,11 @@ function handleFileDrop(e, setFile, show) {
   show(true);
 }
 
+/**
+ * Top panel file drop and upload modal for retrieving networks.
+ * @param   {function} setData Function to set the retrieved data.
+ * @return  {React.Component} A React component.
+ */
 export default function UploadModal({setData}) {
   const [shown, show] = useState(false);
   const [file, setFile] = useState(null);
