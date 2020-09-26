@@ -1,0 +1,4 @@
+.clipboard{
+cursor: pointer;
+margin-left: var(--space-sm);
+}

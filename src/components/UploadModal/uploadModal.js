@@ -29,7 +29,7 @@ function getUploadHandler(
     });
     API.parse(file, nodeConf, linkConf)
         .then(processNetwork)
-        .then(response => setData(response))
+        .then((response) => setData(response))
         .catch((err) => {
           console.log(err);
         });
