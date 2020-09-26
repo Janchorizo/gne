@@ -77,24 +77,24 @@ export default function(json) {
 
     // update port connections in node entry
     if (nodes?.[withPorts.sourceAddress] !== undefined) {
-      const source = nodes[withPorts.sourceAddress];
+      const source = withPorts.sourceAddress;
       if (withPorts.sourcePort === '') {
-        source.out.push(i);
-      } else if (source?.[withPorts.sourcePort] !== undefined) {
-        source.ports[withPorts.sourcePort].out.push(i);
+        nodes[source].out.push(i);
+      } else if (nodes[source].ports?.[withPorts.sourcePort] !== undefined) {
+        nodes[source].ports[withPorts.sourcePort].out.push(i);
       } else {
-        source.out.push(i);
+        nodes[source].out.push(i);
       }
     }
 
     if (nodes?.[withPorts.destAddress] !== undefined) {
-      const dest = nodes[withPorts.destAddress];
+      const dest = withPorts.destAddress;
       if (withPorts.destPort === '') {
-        dest.in.push(i);
-      } else if (dest?.[withPorts.destPort] !== undefined) {
-        dest.ports[withPorts.destPort].in.push(i);
+        nodes[dest].in.push(i);
+      } else if (nodes[dest].ports?.[withPorts.destPort] !== undefined) {
+        nodes[dest].ports[withPorts.destPort].in.push(i);
       } else {
-        dest.in.push(i);
+        nodes[dest].in.push(i);
       }
     }
 
