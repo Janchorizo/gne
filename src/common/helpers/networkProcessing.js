@@ -13,8 +13,8 @@ function getNodeWithType(node) {
     type = `IPv4:${ipclass}:${scope}`;
   } else if (IP.isIPv6(node.address)) {
     const expanded = IP.expandedIPv6Address(node.address);
-    const [isSpecial, specialType] = IP.isIPv6Special(expanded);
-    if (isSpecial === true) {
+    const specialType = IP.getIPv6SpecialType(expanded);
+    if (specialType !== null) {
       type = type = `IPv6:${specialType}`;
     } else {
       type = type = `IPv6:${IP.getIPv6Type(expanded)}`;
