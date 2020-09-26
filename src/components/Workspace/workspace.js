@@ -11,9 +11,9 @@ export default function Workspace({data}) {
     <div className={style.tableContainer}>
       <DataTable data={data}/>
     </div>
-  </div>
+  </div>;
 }
 
 Workspace.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
 };

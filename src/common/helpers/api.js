@@ -20,4 +20,4 @@ export default {parse: function apiParse(file, nodeConf, linkConf) {
           reject(err);
         });
   });
-}}
+}};

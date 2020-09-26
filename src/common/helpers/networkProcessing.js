@@ -16,8 +16,8 @@ function getNodeWithType(node) {
     }
   }
   const ports = Object.fromEntries(
-    node.ports.map(d => [d, {in:[], out:[]}])
-  )
+      node.ports.map((d) => [d, {in: [], out: []}]),
+  );
   return {
     type,
     ports,
@@ -29,33 +29,33 @@ function getNodeWithType(node) {
 
 function getLinkWithPorts(link) {
   let isIPv4 = IP.isIPv4(link.source);
-  const sourceAddress = isIPv4 === true
-    ? IP.getIPv4Address(link.source)
-    : link.source;
-  const sourcePort = isIPv4 === true
-    ? IP.getIPv4Port(link.source)
-    : '';
+  const sourceAddress = isIPv4 === true ?
+    IP.getIPv4Address(link.source) :
+    link.source;
+  const sourcePort = isIPv4 === true ?
+    IP.getIPv4Port(link.source) :
+    '';
 
   isIPv4 = IP.isIPv4(link.dest);
-  const destAddress = isIPv4 === true
-    ? IP.getIPv4Address(link.dest)
-    : link.dest;
-  const destPort = isIPv4 === true
-    ? IP.getIPv4Port(link.dest)
-    : '';
+  const destAddress = isIPv4 === true ?
+    IP.getIPv4Address(link.dest) :
+    link.dest;
+  const destPort = isIPv4 === true ?
+    IP.getIPv4Port(link.dest) :
+    '';
 
   return {
     sourceAddress,
     sourcePort,
     destAddress,
-    destPort
-  }
+    destPort,
+  };
 }
 
-export default function (json) {
-  window.IP_ = IP
+export default function(json) {
+  window.IP_ = IP;
   const nodes = Object.fromEntries(
-    json.nodes.map(node => [node.address, getNodeWithType(node)]));
+      json.nodes.map((node) => [node.address, getNodeWithType(node)]));
 
   const links = json.links.map((link, i) => {
     const withPorts = {id: i, ...getLinkWithPorts(link)};

@@ -10,23 +10,23 @@ export default function Table({data}) {
   }
 
   const [expanded, setExpanded] = useState(false);
-  const toggleMessage = expanded === true
-    ? 'Collapse table ❱'
-    : '❰ Expand table';
+  const toggleMessage = expanded === true ?
+    'Collapse table ❱' :
+    '❰ Expand table';
 
   const tableCssClasses = [
     'primary',
     style.table,
-    expanded === false ? style.collapsed : style.expanded
+    expanded === false ? style.collapsed : style.expanded,
   ].join(' ');
 
-  const rows = data.nodes.map(node =>
+  const rows = data.nodes.map((node) =>
     <tr key={node.address}>
       <cells.PortsCell node={node}/>
       <cells.AddressCell node={node}/>
       <cells.TrafficCell node={node}/>
       <cells.PortTrafficCell node={node}/>
-    </tr>
+    </tr>,
   );
 
   return <table className={tableCssClasses}>
@@ -36,7 +36,7 @@ export default function Table({data}) {
           className={style.toggle}
           onClick={()=> setExpanded(!expanded)}
           colSpan="5">
-            <button>{toggleMessage}</button>
+          <button>{toggleMessage}</button>
         </th>
       </tr>
       <tr>
@@ -49,9 +49,9 @@ export default function Table({data}) {
     <tbody>
       {rows}
     </tbody>
-  </table>
+  </table>;
 }
 
 Table.propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
 };

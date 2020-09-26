@@ -5,7 +5,7 @@ import style from './style.module.css';
 
 export default function ClipboardCopy({msg, content, extraClassName=''}) {
   const className = `${style.clipboard} ${extraClassName}`;
-  return <span 
+  return <span
     data-tooltip={msg}
     className={className}
     onClick={() => ClipoardUtility.copy(content)}>📋</span>;

@@ -17,8 +17,10 @@ export default function App(props) {
   const [usingEspLang, setUsingEspLang] = useState(true);
   const [data, setData] = useState(null);
 
-useEffect(() => {processNetwork(expectedResponse).then(setData)}, []);
-//  console.log(data);
+  useEffect(() => {
+    processNetwork(expectedResponse).then(setData);
+  }, []);
+  //  console.log(data);
 
   const cssClasses = [
     style.app,

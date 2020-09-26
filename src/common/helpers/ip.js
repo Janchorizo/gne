@@ -4,17 +4,17 @@ const ipv4AddressFormat = /((?:[0-9]+\.){3}[0-9]+)(?::[0-9]+)?/;
 const ipv4PortFormat = /(?:[0-9]+\.){3}[0-9]+:([0-9]+)/;
 const ipv6Format = /:{2,8}/;
 
-export function isIPv4 (address) {
+export function isIPv4(address) {
   return ipv4Format.test(address);
 }
-export function getIPv4Address (address) {
+export function getIPv4Address(address) {
   return ipv4AddressFormat.exec(address)[1];
 }
-export function getIPv4Port (address) {
+export function getIPv4Port(address) {
   const matched = ipv4PortFormat.exec(address);
   return matched !== null ? matched[1] : '';
 }
-export function getIPv4Class (address){
+export function getIPv4Class(address) {
   const firstOctect = +address.split('.')[0];
   if (firstOctect < 126) {
     return 'A';
@@ -30,35 +30,41 @@ export function getIPv4Class (address){
     return 'E-Experimental';
   }
 }
-export function getIPv4Scope (address, ipClass) {
+export function getIPv4Scope(address, ipClass) {
   const firstOctect = +address.split('.')[0];
   switch (ipClass) {
     case 'A':
-      if (firstOctect === 10) { return 'Private'; }
+      if (firstOctect === 10) {
+        return 'Private';
+      }
       break;
     case 'B':
-      if (firstOctect === 172) { return 'Private'; }
+      if (firstOctect === 172) {
+        return 'Private';
+      }
       break;
     case 'C':
-      if (firstOctect === 192) { return 'Private'; }
+      if (firstOctect === 192) {
+        return 'Private';
+      }
       break;
   }
-  return 'Public'
+  return 'Public';
 }
-export function isIPv6 (address) {
+export function isIPv6(address) {
   return ipv6Format.test(address);
 }
 export function expandedIPv6Address(address) {
-  const markCollapsedBlock = d => d.replace(/::/, ':@:');
-  const uncollapsedBlocks = 
-    address.split(':').filter(b => b.length > 0).length;
+  const markCollapsedBlock = (d) => d.replace(/::/, ':@:');
+  const uncollapsedBlocks =
+    address.split(':').filter((b) => b.length > 0).length;
 
   function formatBlock(d) {
     if (d === '@') {
       return 'x'.repeat(8 - uncollapsedBlocks)
-                .split('')
-                .map(d => '0000')
-                .join(':');
+          .split('')
+          .map((d) => '0000')
+          .join(':');
     }
     if (d.length < 4) {
       return '0'.repeat(4 - d.length) + d;
@@ -67,14 +73,16 @@ export function expandedIPv6Address(address) {
   }
 
   return markCollapsedBlock(address)
-    .split(':')
-    .filter(b => b.length > 0)
-    .map(formatBlock)
-    .join(':');
+      .split(':')
+      .filter((b) => b.length > 0)
+      .map(formatBlock)
+      .join(':');
 }
-export function isIPv6Special (expandedAddress) {
+export function isIPv6Special(expandedAddress) {
   const blocks = expandedAddress.split(':');
-  if (expandedAddress.length !== 8) {return [false, null]}
+  if (expandedAddress.length !== 8) {
+    return [false, null];
+  }
   switch (expandedAddress) {
     case '0000:0000:0000:0000:0000:0000:0000:0000':
       return [true, 'Default'];
@@ -94,9 +102,9 @@ export function isIPv6Special (expandedAddress) {
         return [true, 'Compatibility Teredo'];
       }
   }
-  return[false, null]
+  return [false, null];
 }
-export function getIPv6Type (address) {
+export function getIPv6Type(address) {
   if (address.startsWith('2') || address.startsWith('3')) {
     return 'Gloabl unicast';
   }
