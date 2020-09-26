@@ -127,5 +127,5 @@ PortsCell.propTypes = {
 };
 
 PortTraffic.propTypes = {
-  ports: PropTypes.listOf(PropTypes.object),
+  ports: PropTypes.arrayOf(PropTypes.array),
 };
