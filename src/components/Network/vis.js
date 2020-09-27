@@ -127,7 +127,11 @@ function setupSimulation(width, height, nodes, links, data) {
  * @return  {d3.selection} The nodes d3 selection.
  */
 function renderNodes(svg, nodes) {
-  d3.select(svg).selectAll('g.'+selectors.genericNode)
+  let nodesG = d3.select(svg)
+      .selectAll('g.'+selectors.genericNode)
+      .remove();
+  nodesG = d3.select(svg)
+      .selectAll('g.'+selectors.genericNode)
       .data(nodes)
       .enter()
       .append('g')
@@ -137,7 +141,7 @@ function renderNodes(svg, nodes) {
         d3.select(this).append('rect'); // eslint-disable-line no-invalid-this
         d3.select(this).append('text'); // eslint-disable-line no-invalid-this
       });
-  const nodesG = d3.select(svg).selectAll('g.'+selectors.genericNode)
+  nodesG
       .each(function(d) {
         d3.select(this).select('rect') // eslint-disable-line no-invalid-this
             .attr('x', -15)
@@ -164,16 +168,18 @@ function renderLinks(svg, links) {
       .domain([0, maxCount])
       .range([minLinkWidth, maxLinkWidth]);
 
-  d3.select(svg).selectAll('line.'+selectors.genericLink)
-      .data(links)
-      .enter().append('line')
+  let linksG = d3.select(svg)
+      .selectAll('line.'+selectors.genericLink)
+      .data(links);
+  linksG.exit().remove();
+  linksG.enter().append('line')
       .classed(selectors.genericLink, true)
       .each(function(d) {
         d3.select(this) // eslint-disable-line no-invalid-this
             .classed(selectors.linkIdentifier(d.source), true)
             .classed(selectors.linkIdentifier(d.target), true);
       });
-  const linksG = d3.select(svg).selectAll('line.'+selectors.genericLink)
+  linksG = d3.select(svg).selectAll('line.'+selectors.genericLink)
       .attr('stroke-width', (d) => lineSize(d.count));
 
   return linksG;
@@ -189,8 +195,6 @@ function renderLegend(svg, links) {
   const lineSize = d3.scaleLinear()
       .domain([0, maxCount])
       .range([minLinkWidth, maxLinkWidth]);
-
-  console.log(lineSize.domain(), lineSize.range());
 
   const legendSizeLine = d3.legendSize()
       .scale(lineSize)
