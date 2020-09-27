@@ -15,6 +15,5 @@
 }
 .link{
   stroke: var(--secondary-dark);
-  stroke-width: 2px;
   stroke-linecap: round;
 }

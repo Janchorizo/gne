@@ -14,21 +14,21 @@ export default function render(svg, data) {
   .tick()
   .force('charge', d3.forceManyBody().strength(-35))
   .force("collide", d3.forceCollide(50))
-  .force('center', d3.forceCenter(width / 2, height / 2).strength(0.15))
+  .force('center', d3.forceCenter(width / 2, height / 2).strength(0.10))
   
-
+  console.log(data.links)
   const links = renderLinks(svg, data.links);
   const nodes = renderNodes(svg, data.nodes, width, height, simulation);
   simulation.nodes(data.nodes).on('tick', () => {
     nodes.attr('transform', node =>{
-      node.x = clamp(node.x, 0, width);
-      node.y = clamp(node.y, 0, height);
+      node.x = clamp(node.x, 10, width - 10);
+      node.y = clamp(node.y, 10, height - 10);
       return `translate(${node.x}, ${node.y})`
     });
     links
-      .attr('x1', link => link.source.x)
+      .attr('x1', link => link.source.x + (link.source.address.length * 6))
       .attr('y1', link => link.source.y)
-      .attr('x2', link => link.target.x)
+      .attr('x2', link => link.target.x + (link.target.address.length * 6))
       .attr('y2', link => link.target.y)
   });
   const linkForce = d3.forceLink(data.links)
@@ -51,8 +51,8 @@ function renderNodes(svg, nodes, width, height, simulation) {
   }
   
   function dragged(event, d) {
-    d.fx = clamp(event.x, 0, width);
-    d.fy = clamp(event.y, 0, height);
+    d.fx = clamp(event.x, 10, width - 10);
+    d.fy = clamp(event.y, 10, height - 10);
     simulation.alpha(1).restart();
   }
 
@@ -73,6 +73,7 @@ function renderNodes(svg, nodes, width, height, simulation) {
         .attr('y', -15)
         .attr('width', d.address.length * 12)
         .attr('height', 30)
+        .attr('rx', 15)
         .attr('stroke', 'var(--primary)');
       d3.select(this).select('text')
         .text(d.address)
@@ -91,7 +92,8 @@ function renderLinks(svg, links) {
   .enter().append('line')
     .classed('link', true)
     .classed(style.link, true)
-  const linksG = d3.select(svg).selectAll('line.link');
+  const linksG = d3.select(svg).selectAll('line.link')
+    .attr('stroke-width', d => 2.5 * d.count);
 
   return linksG;
 }
