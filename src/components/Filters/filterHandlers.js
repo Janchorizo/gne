@@ -7,6 +7,7 @@
  * @param  {object} fetched Object with the original network data.
  * @param  {function} setData Callback to set the filtered data.
  * @param  {function} setVisibile Callback to close the filter menu.
+ * @return {function} The event handler.
  */
 export function getFilterAddHandler(
     filteredDimensions, setFilteredDimensions,
@@ -61,6 +62,7 @@ export function getFilterAddHandler(
  * @param  {object} fetched Object with the original network data.
  * @param  {function} setData Callback to set the filtered data.
  * @param  {function} setVisibile Callback to close the filter menu.
+ * @return {function} The event handler.
  */
 export function getFilterRemoveHandler(
     filteredDimensions, setFilteredDimensions,
