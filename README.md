@@ -30,3 +30,7 @@ For development, be sure to have Node installed, along with [NPM](https://www.np
 2. then install the dependencies by running `yarn install` and
 3. either run the development server using `yarn dev` or built the app by running `yarn build`.
 * The command `yarn lint` will execute the configured linter to check for syntax errors and code style (Google's one being used).
+
+## Future work
+- Discern between incoming and outcoming links.
+- Specify involved ports in node-link diagram links.
