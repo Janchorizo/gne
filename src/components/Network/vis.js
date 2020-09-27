@@ -1,112 +1,173 @@
 import * as d3 from 'd3';
 
-import address2class from './format';
+import * as selectors from './selectors.js';
 import style from './style.module.css';
 
+
+const clampMargin = 20; // with respect to <svg> dimensions
+const forceStrengths = {
+  charge: -35,
+  collide: 50,
+  center: .1,
+  link: .8,
+};
 
 /**
  * Render an interactive node-link diagram.
  * @param   {DOMNode} svg The DOM svg node.
  * @param   {object} data The network.
+ * @param   {function} setFocused Callback to set the focused node.
  */
 export default function render(svg, data, setFocused) {
-  console.log(8)
   const {width, height} = svg.getBoundingClientRect();
-  const simulation = d3.forceSimulation()
-  .tick()
-  .force('charge', d3.forceManyBody().strength(-35))
-  .force("collide", d3.forceCollide(50))
-  .force('center', d3.forceCenter(width / 2, height / 2).strength(0.10))
 
   const links = renderLinks(svg, data.links);
-  const nodes = renderNodes(svg, data.nodes, width, height, simulation);
-  nodes
-    .on('mouseenter', (e, d) => setFocused(d.address))
-    .on('mouseleave', d => setFocused(null))
-
-  simulation.nodes(data.nodes).on('tick', () => {
-    nodes.attr('transform', node =>{
-      node.x = clamp(node.x, 10, width - 10);
-      node.y = clamp(node.y, 10, height - 10);
-      return `translate(${node.x}, ${node.y})`
-    });
-    links
-      .attr('x1', link => link.source.x + (link.source.address.length * 6))
-      .attr('y1', link => link.source.y)
-      .attr('x2', link => link.target.x + (link.target.address.length * 6))
-      .attr('y2', link => link.target.y)
-  });
-  const linkForce = d3.forceLink(data.links)
-    .id(d => d.address)
-    .distance(95)
-    .strength(0.8)
-  simulation.force('link',linkForce)
+  const nodes = renderNodes(svg, data.nodes);
+  const simulation = setupSimulation(width, height, nodes, links, data);
+  setupInteraction(width, height, nodes, simulation, setFocused);
 }
 
-function renderNodes(svg, nodes, width, height, simulation) {
+/**
+ * Setup focus change for hover interactions.
+ * @param   {int} width SVG node width.
+ * @param   {int} height SVG node height.
+ * @param   {d3.selection} nodes Nodes selection
+ * @param   {object} simulation The d3 force simulation.
+ * @param   {function} setFocused Callback to set the focused node.
+ */
+function setupInteraction(width, height, nodes, simulation, setFocused) {
+  /**
+   * Handle node click interaction.
+   * @param   {object} event The event.
+   * @param   {any} d Node data.
+   */
   function click(event, d) {
     delete d.fx;
     delete d.fy;
-    d3.select(this).classed(style.fixed, false);
-    simulation.alpha(1).restart();
-  }
-  
-  function dragstart() {
-    d3.select(this).classed(style.fixed, true);
-  }
-  
-  function dragged(event, d) {
-    d.fx = clamp(event.x, 10, width - 10);
-    d.fy = clamp(event.y, 10, height - 10);
+    d3.select(this) // eslint-disable-line no-invalid-this
+        .classed(style.fixed, false);
     simulation.alpha(1).restart();
   }
 
-  d3.select(svg).selectAll('g.'+style.node)
-    .data(nodes)
-    .enter()
+  /**
+   * Handle node drag start interaction.
+   */
+  function dragstart() {
+    d3.select(this) // eslint-disable-line no-invalid-this
+        .classed(style.fixed, true);
+  }
+
+  /**
+   * Handle node dragg interaction.
+   * @param   {object} event The event.
+   * @param   {any} d Node data.
+   */
+  function dragged(event, d) {
+    d.fx = clamp(event.x, clampMargin, width - clampMargin);
+    d.fy = clamp(event.y, clampMargin, height - clampMargin);
+    simulation.alpha(1).restart();
+  }
+
+  nodes
+      .call(d3.drag()
+          .on('start', dragstart)
+          .on('drag', dragged))
+      .on('click', click)
+      .on('mouseenter', (e, d) => setFocused(d.address))
+      .on('mouseleave', (d) => setFocused(null));
+}
+
+/**
+ * Setup and start the force simulation for node placement.
+ * @param   {int} width SVG node width.
+ * @param   {int} height SVG node height.
+ * @param   {d3.selection} nodes Nodes selection
+ * @param   {d3.selection} links Links selection
+ * @param   {object} data The network.
+ * @return  {object} The d3 force simulation
+ */
+function setupSimulation(width, height, nodes, links, data) {
+  const simulation = d3.forceSimulation();
+
+  simulation.nodes(data.nodes).on('tick', () => {
+    nodes.attr('transform', (node) =>{
+      node.x = clamp(node.x, clampMargin, width - clampMargin);
+      node.y = clamp(node.y, clampMargin, height - clampMargin);
+      return `translate(${node.x}, ${node.y})`;
+    });
+    links
+        .attr('x1', (link) => link.source.x + (link.source.address.length * 6))
+        .attr('y1', (link) => link.source.y)
+        .attr('x2', (link) => link.target.x + (link.target.address.length * 6))
+        .attr('y2', (link) => link.target.y);
+  });
+
+  const forces = {
+    charge: d3.forceManyBody().strength(forceStrengths.charge),
+    collide: d3.forceCollide(forceStrengths.collide),
+    center: d3.forceCenter(width/2, height/2).strength(forceStrengths.center),
+    link: d3.forceLink(data.links)
+        .id((d) => d.address).distance(95).strength(forceStrengths.link),
+  };
+  Object.entries(forces)
+      .forEach(([name, force]) => simulation.force(name, force));
+
+  simulation.tick();
+  return simulation;
+}
+
+/**
+ * Render nodes.
+ * @param   {DOMNode} svg The DOM svg node.
+ * @param   {object} nodes The network data for network nodes.
+ * @return  {d3.selection} The nodes d3 selection.
+ */
+function renderNodes(svg, nodes) {
+  d3.select(svg).selectAll('g.'+selectors.genericNode)
+      .data(nodes)
+      .enter()
       .append('g')
-      .attr('id', d => address2class('netNode', d.address))
-      .classed(style.node, true)
-      .each(function (d) {
-        d3.select(this).append('rect');
-        d3.select(this).append('text');
+      .attr('id', (d) => selectors.nodeIdentifier(d.address))
+      .classed(selectors.genericNode, true)
+      .each(function(d) {
+        d3.select(this).append('rect'); // eslint-disable-line no-invalid-this
+        d3.select(this).append('text'); // eslint-disable-line no-invalid-this
       });
-  const nodesG = d3.select(svg).selectAll('g.'+style.node)  
-    .each(function(d) {
-      d3.select(this).select('rect')
-        .attr('x', -15)
-        .attr('y', -15)
-        .attr('width', d.address.length * 12)
-        .attr('height', 30)
-        .attr('rx', 15)
-        .attr('stroke', 'var(--primary)');
-      d3.select(this).select('text')
-        .text(d.address)
-        .attr('fill', 'var(--primary)');
-    })
-    .call(d3.drag()
-      .on("start", dragstart)
-      .on("drag", dragged))
-    .on('click', click)
+  const nodesG = d3.select(svg).selectAll('g.'+selectors.genericNode)
+      .each(function(d) {
+        d3.select(this).select('rect') // eslint-disable-line no-invalid-this
+            .attr('x', -15)
+            .attr('y', -15)
+            .attr('width', d.address.length * 12)
+            .attr('height', 30)
+            .attr('rx', 15);
+        d3.select(this).select('text') // eslint-disable-line no-invalid-this
+            .text(d.address);
+      });
+
   return nodesG;
 }
 
+/**
+ * Render links. [TODO: Convert to g to hold port numbers and arrow]
+ * @param   {DOMNode} svg The DOM svg node.
+ * @param   {object} links The network data for network links.
+ * @return  {d3.selection} The links d3 selection.
+ */
 function renderLinks(svg, links) {
-  d3.select(svg).selectAll('line.'+style.link)
-  .data(links)
-  .enter().append('line')
-    .classed(style.link, true)
-    .each(function (d) {
-      d3.select(this)
-        .classed(address2class('netLink', d.source), true)
-        .classed(address2class('netLink', d.target), true)
-    })
-  const linksG = d3.select(svg).selectAll('line.'+style.link)
-    .attr('stroke-width', d => 2.5 * d.count);
+  d3.select(svg).selectAll('line.'+selectors.genericLink)
+      .data(links)
+      .enter().append('line')
+      .classed(selectors.genericLink, true)
+      .each(function(d) {
+        d3.select(this) // eslint-disable-line no-invalid-this
+            .classed(selectors.linkIdentifier(d.source), true)
+            .classed(selectors.linkIdentifier(d.target), true);
+      });
+  const linksG = d3.select(svg).selectAll('line.'+selectors.genericLink)
+      .attr('stroke-width', (d) => 2.5 * d.count);
 
   return linksG;
 }
 
-function clamp(x, lo, hi) {
-  return x < lo ? lo : x > hi ? hi : x;
-}
+const clamp = (x, lo, hi) => Math.max(lo, Math.min(x, hi));
