@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
 import render from './vis';
-import handleFocus from './focus.js';
+import handleFocus from './focus';
 import style from './style.module.css';
 
 
@@ -32,6 +32,6 @@ export default function Network({data, focused, setFocused}) {
 
 Network.propTypes = {
   data: PropTypes.object,
-  focus: PropTypes.string,
+  focused: PropTypes.string,
   setFocused: PropTypes.func,
 };
