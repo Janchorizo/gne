@@ -20,6 +20,7 @@ export default function App() {
   const [usingLightTheme, setUsingLightTheme] = useState(isDay);
   const [usingEspLang, setUsingEspLang] = useState(true);
   const [data, setData] = useState(null);
+  const [focused, setFocused] = useState(null);
 
   //useEffect(() => {
   //  processNetwork(expectedResponse).then(setData);
@@ -38,7 +39,7 @@ export default function App() {
       usingEspLang,
       setUsingEspLang,
       setData}} />
-    <Workspace data={data}/>
+    <Workspace data={data} {...{focused, setFocused}}/>
   </div>;
 }
 

@@ -1,5 +1,6 @@
 import * as d3 from 'd3';
 
+import address2class from './format';
 import style from './style.module.css';
 
 
@@ -8,17 +9,21 @@ import style from './style.module.css';
  * @param   {DOMNode} svg The DOM svg node.
  * @param   {object} data The network.
  */
-export default function render(svg, data) {
+export default function render(svg, data, setFocused) {
+  console.log(8)
   const {width, height} = svg.getBoundingClientRect();
   const simulation = d3.forceSimulation()
   .tick()
   .force('charge', d3.forceManyBody().strength(-35))
   .force("collide", d3.forceCollide(50))
   .force('center', d3.forceCenter(width / 2, height / 2).strength(0.10))
-  
-  console.log(data.links)
+
   const links = renderLinks(svg, data.links);
   const nodes = renderNodes(svg, data.nodes, width, height, simulation);
+  nodes
+    .on('mouseenter', (e, d) => setFocused(d.address))
+    .on('mouseleave', d => setFocused(null))
+
   simulation.nodes(data.nodes).on('tick', () => {
     nodes.attr('transform', node =>{
       node.x = clamp(node.x, 10, width - 10);
@@ -56,17 +61,17 @@ function renderNodes(svg, nodes, width, height, simulation) {
     simulation.alpha(1).restart();
   }
 
-  d3.select(svg).selectAll('g.node')
+  d3.select(svg).selectAll('g.'+style.node)
     .data(nodes)
     .enter()
       .append('g')
-      .classed('node', true)
-      .classed(style.nodeAddress, true)
+      .attr('id', d => address2class('netNode', d.address))
+      .classed(style.node, true)
       .each(function (d) {
         d3.select(this).append('rect');
         d3.select(this).append('text');
       });
-  const nodesG = d3.select(svg).selectAll('g.node')  
+  const nodesG = d3.select(svg).selectAll('g.'+style.node)  
     .each(function(d) {
       d3.select(this).select('rect')
         .attr('x', -15)
@@ -87,12 +92,16 @@ function renderNodes(svg, nodes, width, height, simulation) {
 }
 
 function renderLinks(svg, links) {
-  d3.select(svg).selectAll('line.link')
+  d3.select(svg).selectAll('line.'+style.link)
   .data(links)
   .enter().append('line')
-    .classed('link', true)
     .classed(style.link, true)
-  const linksG = d3.select(svg).selectAll('line.link')
+    .each(function (d) {
+      d3.select(this)
+        .classed(address2class('netLink', d.source), true)
+        .classed(address2class('netLink', d.target), true)
+    })
+  const linksG = d3.select(svg).selectAll('line.'+style.link)
     .attr('stroke-width', d => 2.5 * d.count);
 
   return linksG;

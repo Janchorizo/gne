@@ -10,7 +10,7 @@ import * as cells from './tableCells.js';
  * @param   {object} data The network.
  * @return {React.Component} A react component.
  */
-export default function Table({data}) {
+export default function Table({data, setFocused}) {
   if (data === null) {
     return '';
   }
@@ -27,7 +27,9 @@ export default function Table({data}) {
   ].join(' ');
 
   const rows = data.nodes.map((node) =>
-    <tr key={node.address}>
+    <tr key={node.address}
+        onMouseEnter={() => setFocused(node.address)}
+        onMouseLeave={() => setFocused(null)}>
       <cells.PortsCell node={node}/>
       <cells.AddressCell node={node}/>
       <cells.TrafficCell node={node}/>

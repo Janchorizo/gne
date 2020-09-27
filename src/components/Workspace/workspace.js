@@ -10,13 +10,13 @@ import style from './style.module.css';
  * @param   {object} data Retrieved data from the API.
  * @return  {React.Component} A React component
  */
-export default function Workspace({data}) {
+export default function Workspace({data, focused, setFocused}) {
   return <div className={style.workspace}>
     <div className={style.networkContainer}>
-      <Network data={data}/>
+      <Network {...{data, focused, setFocused}}/>
     </div>
     <div className={style.tableContainer}>
-      <DataTable data={data}/>
+      <DataTable {...{data, focused, setFocused}}/>
     </div>
   </div>;
 }

@@ -2,11 +2,11 @@
   width: calc(100% - 250px);
   height: 100%;
 }
-.nodeAddress{
+.node{
   font-family: monospace;
   cursor: default;
 }
-.nodeAddress rect{
+.node rect{
   fill: var(--surface);
 }
 .fixed rect{
@@ -16,4 +16,19 @@
 .link{
   stroke: var(--secondary-dark);
   stroke-linecap: round;
+}
+.unfocused{
+  opacity: .3;
+}
+line.unfocused{
+  opacity: .1;
+}
+.focused{
+  opacity: 1;
+}
+.focused rect{
+  fill: var(--primary);
+}
+.focused text{
+  fill: var(--on-primary);
 }
