@@ -13,7 +13,7 @@ display: none;
 font-weight: normal;
 }
 .table{
-margin-left: auto;
+background-color: var(--surface);
 color: var(--on-background);
 border-left: solid 1px var(--primary);
 padding-right: var(--space-lg);
@@ -24,6 +24,9 @@ background-color: var(--surface);
 }
 .table th:first-of-type{
 padding-right: var(--space-md);
+}
+.table thead tr:nth-of-type(2) th{
+border-bottom: double 4px var(--secondary-dark);
 }
 .table td{
 padding-right: var(--space-sm);
@@ -99,7 +102,7 @@ opacity: .9;
 opacity: 1;
 }
 @media (max-width: 1100px){
-    table.expanded{width: 100%;}
+    table.expanded{width: calc(100vw - 15px);}
     .collapsed .portsCell{
     display: none;
     }
