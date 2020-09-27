@@ -55,9 +55,9 @@ function getLinkWithPorts(link) {
     '';
 
   return {
-    sourceAddress,
+    source: sourceAddress,
     sourcePort,
-    destAddress,
+    target: destAddress,
     destPort,
   };
 }

@@ -2,3 +2,19 @@
   width: calc(100% - 250px);
   height: 100%;
 }
+.nodeAddress{
+  font-family: monospace;
+  cursor: default;
+}
+.nodeAddress rect{
+  fill: var(--surface);
+}
+.fixed rect{
+  stroke-width: 5px;
+  stroke: var(--primary-light);
+}
+.link{
+  stroke: var(--secondary-dark);
+  stroke-width: 2px;
+  stroke-linecap: round;
+}
