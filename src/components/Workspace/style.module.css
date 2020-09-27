@@ -11,6 +11,7 @@ overflow-y: auto;
 position: absolute;
 top: 0;
 right: 0;
+height: 100%;
 }
 .networkContainer{
 width: 100%;
