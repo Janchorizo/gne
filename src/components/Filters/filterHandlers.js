@@ -43,8 +43,8 @@ export function getFilterAddHandler(
 
     newData.links =
       fetched.links.filter((link) => (
-        newFilters[link.source].length === 0 &&
-        newFilters[link.target].length === 0));
+        newFilters[link.source.address]?.length === 0 &&
+        newFilters[link.target.address]?.length === 0));
 
     setFilteredDimensions(newlyFiltered);
     setFilters(newFilters);
@@ -94,8 +94,8 @@ export function getFilterRemoveHandler(
 
     newData.links =
       fetched.links.filter((link) => (
-        newFilters[link.source].length === 0 &&
-        newFilters[link.target].length === 0));
+        newFilters[link.source.address]?.length === 0 &&
+        newFilters[link.target.address]?.length === 0));
 
     setFilteredDimensions(newlyFiltered);
     setFilters(newFilters);

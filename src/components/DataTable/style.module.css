@@ -6,6 +6,7 @@ display: none;
 font-weight: normal;
 }
 .table{
+min-height: 100%;
 background-color: var(--surface);
 color: var(--on-background);
 border-left: solid 1px var(--primary);

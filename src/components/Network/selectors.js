@@ -10,7 +10,10 @@ export const genericLink = style.link;
  * @return {string} The resulting indentifier.
  */
 function joinPrefixWithAddress(prefix, address) {
-  return prefix + '-' + address.replace(/[\.\:]/g, '-');
+  const addr = Object.hasOwnProperty.call(address, 'address') ?
+    address.address :
+    address;
+  return prefix + '-' + addr.replace(/[\.\:]/g, '-');
 }
 
 /**

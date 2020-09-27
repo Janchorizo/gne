@@ -39,6 +39,7 @@ function PortCountInput({onAdd}) {
       Object.keys(d.ports).length <= max);
 
   return <React.Fragment>
+    <span>Minimum ports:</span>
     <label>
       <input
         className={style.numberInput}
@@ -48,6 +49,7 @@ function PortCountInput({onAdd}) {
         onChange={(e) => setMin(e.target.value)}>
       </input>
     </label>
+    <span>Maximum ports:</span>
     <label>
       <input
         className={style.numberInput}
@@ -82,6 +84,7 @@ function TrafficInput({onAdd}) {
   };
 
   return <React.Fragment>
+    <span>Minimum connections:</span>
     <label>
       <input
         className={style.numberInput}
@@ -91,6 +94,7 @@ function TrafficInput({onAdd}) {
         onChange={(e) => setMin(e.target.value)}>
       </input>
     </label>
+    <span>Maximum connections:</span>
     <label>
       <input
         className={style.numberInput}
@@ -123,6 +127,7 @@ function IncomingTrafficInput({onAdd}) {
   };
 
   return <React.Fragment>
+    <span>Minimum connections:</span>
     <label>
       <input
         className={style.numberInput}
@@ -132,6 +137,7 @@ function IncomingTrafficInput({onAdd}) {
         onChange={(e) => setMin(e.target.value)}>
       </input>
     </label>
+    <span>Maximum connections:</span>
     <label>
       <input
         className={style.numberInput}
@@ -164,6 +170,7 @@ function OutgoingTrafficInput({onAdd}) {
   };
 
   return <React.Fragment>
+    <span>Minimum connections:</span>
     <label>
       <input
         className={style.numberInput}
@@ -173,6 +180,7 @@ function OutgoingTrafficInput({onAdd}) {
         onChange={(e) => setMin(e.target.value)}>
       </input>
     </label>
+    <span>Maximum connections:</span>
     <label>
       <input
         className={style.numberInput}

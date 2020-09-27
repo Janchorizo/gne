@@ -13,7 +13,7 @@ import style from './style.module.css';
 export default function Filters({fetched, setData}) {
   const [filteredDimensions, setFilteredDimensions] = useState([]);
   const [filters, setFilters] = useState({});
-  const [adding, setAdding] = useState(true);
+  const [adding, setAdding] = useState(false);
 
   const handleFilterAdd = getFilterAddHandler(
       filteredDimensions, setFilteredDimensions,
