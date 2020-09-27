@@ -1,8 +1,50 @@
 .filters{
-height: 2em;
+height: 3em;
 background: var(--surface);
 border-top: solid 1px var(--primary);
 }
 .filters button{
-  font-size: .75em;
+
+}
+.menu > *,
+.menu input{
+background-color: var(--surface);
+color: var(--on-surface);
+}
+.menu{
+  display: inline-flex;
+  align-items: baseline;
+  margin-left: var(--space-md);
+}
+.menu select{
+  width: 10em;
+  margin-left: var(--space-sm);
+}
+.menu button{
+  margin: 0;
+}
+.menu * {
+  margin-left: var(--space-sm);
+}
+.numberInput{
+  width: 4em;
+}
+.filters button{
+  margin-left: var(--space-md);
+}
+.actionButton{
+  margin-left: var(--space-md);
+  border-radius: 0;
+  background-color: var(--secondary-dark);
+  color: var(--on-surface);
+}
+.removeButton{
+  margin-left: var(--space-md);
+  border-radius: 0;
+  background-color: var(--surface);
+  color: var(--on-surface);
+  border: solid 1px var(--primary-dark);
+}
+.removeButton:hover{
+  border: solid 1px var(--primary-light);
 }
