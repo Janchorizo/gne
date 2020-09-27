@@ -9,6 +9,8 @@ import style from './style.module.css';
 /**
  * Interactive node-link diagram showing the network.
  * @param   {object} data The network.
+ * @param   {string} focused Focused network node's address.
+ * @param   {function} setFocused Callback to set the focused node.
  * @return {React.Component} A react component.
  */
 export default function Network({data, focused, setFocused}) {

@@ -8,6 +8,8 @@ import * as cells from './tableCells.js';
 /**
  * Collapsible table showing network details.
  * @param   {object} data The network.
+ * @param   {string} focused Focused network node's address.
+ * @param   {function} setFocused Callback to set the focused node.
  * @return {React.Component} A react component.
  */
 export default function Table({data, setFocused}) {
@@ -28,8 +30,8 @@ export default function Table({data, setFocused}) {
 
   const rows = data.nodes.map((node) =>
     <tr key={node.address}
-        onMouseEnter={() => setFocused(node.address)}
-        onMouseLeave={() => setFocused(null)}>
+      onMouseEnter={() => setFocused(node.address)}
+      onMouseLeave={() => setFocused(null)}>
       <cells.PortsCell node={node}/>
       <cells.AddressCell node={node}/>
       <cells.TrafficCell node={node}/>
@@ -64,4 +66,6 @@ export default function Table({data, setFocused}) {
 
 Table.propTypes = {
   data: PropTypes.object,
+  focused: PropTypes.string,
+  setFocused: PropTypes.func,
 };
