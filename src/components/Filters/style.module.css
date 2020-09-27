@@ -1,0 +1,5 @@
+.filters{
+height: 2em;
+background: var(--surface);
+border-top: solid 1px var(--primary);
+}
