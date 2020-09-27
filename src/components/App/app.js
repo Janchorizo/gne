@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
-import {TopBar, Workspace} from 'components';
+import {TopBar, Workspace, Filters} from 'components';
 import {processNetwork} from 'common/helpers';
-//import expectedResponse from 'common/network.json';
 
 import style from './style.module.css';
 import lightTheme from 'themes/light.module.css';
@@ -19,13 +18,9 @@ const isDay = 9 <= now && now <= 20;
 export default function App() {
   const [usingLightTheme, setUsingLightTheme] = useState(isDay);
   const [usingEspLang, setUsingEspLang] = useState(true);
+  const [fetched, setFetched] = useState(null);
   const [data, setData] = useState(null);
   const [focused, setFocused] = useState(null);
-
-  //useEffect(() => {
-  //  processNetwork(expectedResponse).then(setData);
-  //}, []);
-  //  console.log(data);
 
   const cssClasses = [
     style.app,
@@ -38,8 +33,9 @@ export default function App() {
       setUsingLightTheme,
       usingEspLang,
       setUsingEspLang,
-      setData}} />
+      setData: setFetched}} />
     <Workspace data={data} {...{focused, setFocused}}/>
+    <Filters {...{fetched, setData}}/>
   </div>;
 }
 
