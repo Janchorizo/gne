@@ -13,7 +13,7 @@ export default function Filters({fetched, setData}) {
   const [filters, setFilters] = useState({});
   const [adding, setAdding] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => { // reset filters upon data fetch
     setFilteredDimensions([]);
     if (fetched !== null) {
       setFilters(Object.fromEntries(fetched.nodes.map(d => [d.address, []])));
