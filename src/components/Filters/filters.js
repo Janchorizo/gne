@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 
+import Menu from './menu.js';
+import {getFilterAddHandler, getFilterRemoveHandler} from './filterHandlers';
 import style from './style.module.css';
 
 
@@ -11,25 +13,53 @@ import style from './style.module.css';
 export default function Filters({fetched, setData}) {
   const [filteredDimensions, setFilteredDimensions] = useState([]);
   const [filters, setFilters] = useState({});
-  const [adding, setAdding] = useState(false);
+  const [adding, setAdding] = useState(true);
+
+  const handleFilterAdd = getFilterAddHandler(
+      filteredDimensions, setFilteredDimensions,
+      filters, setFilters,
+      fetched, setData,
+      setAdding,
+  );
+
+  const handleFilterRemove = getFilterRemoveHandler(
+      filteredDimensions, setFilteredDimensions,
+      filters, setFilters,
+      fetched, setData,
+      setAdding,
+  );
+
+  const filterButtons = filteredDimensions.map((dim) =>
+    <button
+      className={style.removeButton}
+      key={dim}
+      onClick={() => handleFilterRemove(dim)}>
+      {dim} <span className="mu mu-cancel"></span>
+    </button>);
 
   useEffect(() => { // reset filters upon data fetch
     setFilteredDimensions([]);
     if (fetched !== null) {
-      setFilters(Object.fromEntries(fetched.nodes.map(d => [d.address, []])));
+      setFilters(Object.fromEntries(fetched.nodes.map((d) => [d.address, []])));
     }
     setData(fetched);
   }, [fetched]);
 
-  const addButton = <button onClick={() => setAdding(true)}>
+  const addButton = <button
+    className={style.actionButton}
+    onClick={() => setAdding(true)}>
     Add filter <span className="mu mu-plus"></span>
-    </button>;
-  const cancelButton = <button onClick={() => setAdding(false)}>
+  </button>;
+  const cancelButton = <button
+    className={style.actionButton}
+    onClick={() => setAdding(false)}>
     Cancel <span className="mu mu-cancel"></span>
-    </button>;
+  </button>;
 
   return <div className={style.filters}>
+    {adding === false ? filterButtons : ''}
     {adding === false ? addButton : cancelButton}
+    {adding === false ? '' : <Menu onAdd={handleFilterAdd}/>}
   </div>;
 }
 
