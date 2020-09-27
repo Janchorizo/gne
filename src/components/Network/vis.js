@@ -58,7 +58,7 @@ function setupInteraction(width, height, nodes, simulation, setFocused) {
   }
 
   /**
-   * Handle node dragg interaction.
+   * Handle node drag interaction.
    * @param   {object} event The event.
    * @param   {any} d Node data.
    */
