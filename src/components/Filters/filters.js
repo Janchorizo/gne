@@ -11,6 +11,7 @@ import style from './style.module.css';
  * @return {React.Component} A react component.
  */
 export default function Filters({fetched, setData}) {
+  if (data === null) {return '';}
   const [filteredDimensions, setFilteredDimensions] = useState([]);
   const [filters, setFilters] = useState({});
   const [adding, setAdding] = useState(false);
