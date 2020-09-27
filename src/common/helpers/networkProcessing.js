@@ -55,9 +55,9 @@ function getLinkWithPorts(link) {
     '';
 
   return {
-    sourceAddress,
+    source: sourceAddress,
     sourcePort,
-    destAddress,
+    target: destAddress,
     destPort,
   };
 }
@@ -72,12 +72,13 @@ export default function(json) {
   const nodes = Object.fromEntries(
       json.nodes.map((node) => [node.address, getNodeWithType(node)]));
 
-  const links = json.links.map((link, i) => {
+  const links = {};
+  json.links.map((link, i) => {
     const withPorts = {id: i, ...getLinkWithPorts(link)};
 
     // update port connections in node entry
-    if (nodes?.[withPorts.sourceAddress] !== undefined) {
-      const source = withPorts.sourceAddress;
+    if (nodes?.[withPorts.source] !== undefined) {
+      const source = withPorts.source;
       if (withPorts.sourcePort === '') {
         nodes[source].out.push(i);
       } else if (nodes[source].ports?.[withPorts.sourcePort] !== undefined) {
@@ -87,8 +88,8 @@ export default function(json) {
       }
     }
 
-    if (nodes?.[withPorts.destAddress] !== undefined) {
-      const dest = withPorts.destAddress;
+    if (nodes?.[withPorts.target] !== undefined) {
+      const dest = withPorts.target;
       if (withPorts.destPort === '') {
         nodes[dest].in.push(i);
       } else if (nodes[dest].ports?.[withPorts.destPort] !== undefined) {
@@ -99,7 +100,21 @@ export default function(json) {
     }
 
     return withPorts;
+  }).forEach((link) => {
+    const id =
+      `${link.source}-${link.target}`;
+    if (links?.[id] === undefined) {
+      links[id] = link;
+      links[id].count = 1;
+      links[id].destPort = [link.destPort];
+      links[id].sourcePort = [link.sourcePort];
+    } else {
+      links[id].count += 1;
+      links[id].destPort.push(link.destPort);
+      links[id].sourcePort.push(link.sourcePort);
+    }
   });
-  const processed = {nodes: Object.values(nodes), links};
+
+  const processed = {nodes: Object.values(nodes), links: Object.values(links)};
   return Promise.resolve(processed);
 }
