@@ -6,8 +6,12 @@
   font-family: monospace;
   cursor: default;
 }
+.node text{
+  fill: var(--primary);
+}
 .node rect{
   fill: var(--surface);
+  stroke: var(--primary);
 }
 .fixed rect{
   stroke-width: 5px;
