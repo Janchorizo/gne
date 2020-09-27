@@ -1,0 +1,38 @@
+.network{
+  width: calc(100% - 250px);
+  height: 100%;
+}
+.node{
+  font-family: monospace;
+  cursor: default;
+}
+.node text{
+  fill: var(--primary);
+}
+.node rect{
+  fill: var(--surface);
+  stroke: var(--primary);
+}
+.fixed rect{
+  stroke-width: 5px;
+  stroke: var(--primary-light);
+}
+.link{
+  stroke: var(--secondary-dark);
+  stroke-linecap: round;
+}
+.unfocused{
+  opacity: .3;
+}
+line.unfocused{
+  opacity: .1;
+}
+.focused{
+  opacity: 1;
+}
+.focused rect{
+  fill: var(--primary);
+}
+.focused text{
+  fill: var(--on-primary);
+}

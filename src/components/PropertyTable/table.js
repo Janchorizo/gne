@@ -1,48 +1,18 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
+import * as events from './events.js';
+import InputCell from './inputCell.js';
 import style from './style.module.css';
 
 
-function onPropertyAdd(onChange, clearFields, properties, property) {
-  if (property.name.length === 0 || property.xpath.length === 0) {
-    return;
-  }
-  const isPresent = properties
-      .map((p) => p.name === property.name)
-      .reduce((ac, dc) => ac || dc, false);
-  if (isPresent === true) {
-    return;
-  }
-  onChange([...properties, property]);
-  clearFields();
-}
-
-function onPropertyDelete(onChange, properties, property) {
-  const idx = properties.map((p) => p.name).indexOf(property.name);
-  const newProperties = [...properties];
-  newProperties.splice(idx, 1);
-  onChange(newProperties);
-}
-
-function InputCell({name, placeholder, property, properties, onChange}) {
-  return <td><input
-    value={property[name]}
-    type="text"
-    placeholder={placeholder}
-    onChange={(e) => {
-      let idx = properties.map((p) => p.name).indexOf(property.name);
-      if (idx === -1) { // a compulsory property not already present
-        properties.push({name: property.name, xpath: '', regex: ''});
-        idx = properties.length - 1;
-      }
-      const newProperties = [...properties];
-      newProperties[idx] = {...newProperties[idx], [name]: e.target.value};
-      onChange(newProperties);
-    }}/>
-  </td>;
-}
-
+/**
+ * Editable table holding the property description for SVG elements.
+ * @param   {list} compulsory A list of compulsory properties.
+ * @param   {object} onChange Callback for setting the new property list.
+ * @param   {object} properties A list of the current properties.
+ * @return {React.Component} A react component.
+ */
 export default function Table({compulsory, properties, onChange}) {
   const defaultFields = {name: '', xpath: '', regex: ''};
   const [editing, onEdit] = useState(defaultFields);
@@ -87,7 +57,8 @@ export default function Table({compulsory, properties, onChange}) {
             {...{property, properties, onChange}} />
           <td>
             <button
-              onClick={() => onPropertyDelete(onChange, properties, property)}>
+              onClick={() =>
+                events.onPropertyDelete(onChange, properties, property)}>
               <span className="mu mu-delete"></span>
             </button>
           </td>
@@ -124,7 +95,8 @@ export default function Table({compulsory, properties, onChange}) {
           type="text" placeholder="Regex format"/></td>
         <td>
           <button
-            onClick={() => onPropertyAdd(onChange, reset, properties, editing)}>
+            onClick={() =>
+              events.onPropertyAdd(onChange, reset, properties, editing)}>
             <span className="mu mu-plus"></span>
           </button>
         </td>
@@ -132,22 +104,6 @@ export default function Table({compulsory, properties, onChange}) {
     </tbody>
   </table>;
 }
-
-InputCell.propTypes = {
-  name: PropTypes.string,
-  placeholder: PropTypes.string,
-  property: PropTypes.shape({
-    name: PropTypes.string,
-    xpath: PropTypes.string,
-    regex: PropTypes.string,
-  }),
-  properties: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string,
-    xpath: PropTypes.string,
-    regex: PropTypes.string,
-  })),
-  onChange: PropTypes.func,
-};
 
 Table.propTypes = {
   compulsory: PropTypes.arrayOf(PropTypes.string),

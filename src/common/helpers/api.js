@@ -1,8 +1,15 @@
-const apiUrl = '__STAGE__' === 'prod' ?
+const apiUrl = __STAGE__ === 'prod' ?
   'https://gne-conversion-api.herokuapp.com/parse' :
   'http://localhost:5000/parse';
 
-export default function apiParse(file, nodeConf, linkConf) {
+/**
+ * Fetches the processed network for a given file and configuration.
+ * @param   {File} file The SVG file.
+ * @param   {list} nodeConf List of property configurations for the nodes.
+ * @param   {list} linkConf List of property configurations for the links.
+ * @return  {Promise} A Promise for the JSON-formated data.
+ */
+export default {parse: function apiParse(file, nodeConf, linkConf) {
   const form = new FormData();
   form.append('node', nodeConf);
   form.append('link', linkConf);
@@ -20,4 +27,4 @@ export default function apiParse(file, nodeConf, linkConf) {
           reject(err);
         });
   });
-}
+}};

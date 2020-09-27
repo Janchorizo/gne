@@ -5,6 +5,15 @@ import {HelpModal, UploadModal} from 'components';
 import style from './style.module.css';
 
 
+/**
+ * Layout component for the app's top bar.
+ * @param   {bool} usingLightTheme Boolean indicating if light theme is used.
+ * @param   {function} setUsingLightTheme Function to toggle between languages.
+ * @param   {bool} usingEspLang Boolean indicating if Spanish is used.
+ * @param   {function} setUsingEspLang Function to toggle between languages.
+ * @param   {function} setData Function to set the retrieved data.
+ * @return  {React.Component} A React component
+ */
 export default function TopBar({
   usingLightTheme,
   setUsingLightTheme,

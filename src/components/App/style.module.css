@@ -1,6 +1,8 @@
 .app{
   height: 100%;
   background: var(--background);
+  display: flex;
+  flex-direction: column;
 }
 .app h1{
   color: var(--on-background);
