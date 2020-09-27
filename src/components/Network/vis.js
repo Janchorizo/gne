@@ -190,8 +190,6 @@ function renderLegend(svg, links) {
       .domain([0, maxCount])
       .range([minLinkWidth, maxLinkWidth]);
 
-  console.log(lineSize.domain(), lineSize.range());
-
   const legendSizeLine = d3.legendSize()
       .scale(lineSize)
       .shape('line')
