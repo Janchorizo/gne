@@ -28,6 +28,9 @@ export default function Table({data, setFocused}) {
     expanded === false ? style.collapsed : style.expanded,
   ].join(' ');
 
+  const connectionCount =
+    data.links.reduce((ac, dc) => ac + dc.count, 0);
+
   const rows = data.nodes.map((node) =>
     <tr key={node.address}
       onMouseEnter={() => setFocused(node.address)}
@@ -53,7 +56,7 @@ export default function Table({data, setFocused}) {
         <th className={style.portsCell}>Ports</th>
         <th>Address <i>({data.nodes.length})</i></th>
         <th className={style.trafficCell}>
-          Traffic <i>({data.links.length})</i>
+          Traffic <i>({connectionCount})</i>
         </th>
         <th className={style.portTrafficCell}>Port traffic</th>
       </tr>
