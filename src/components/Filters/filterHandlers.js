@@ -75,9 +75,11 @@ export function getFilterRemoveHandler(
    * @param  {string} dim The affected dimension.
    */
   return function handleFilterRemove(dim) {
-    const newlyFiltered = [...new Set([...filteredDimensions, dim])];
+    const newlyFiltered = [...filteredDimensions];
     const newFilters = {...filters};
     const newData = {nodes: [], links: []};
+
+    newlyFiltered.splice(newlyFiltered.indexOf(dim), 1);
 
     fetched.nodes.map((node) => {
       if (newFilters[node.address].includes(dim)) {
