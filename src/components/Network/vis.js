@@ -1,10 +1,13 @@
-import * as d3 from 'd3';
+import * as d3Legend from 'd3-svg-legend';
+import * as _d3 from 'd3';
+const d3 = Object.assign({}, _d3, d3Legend);
 
 import * as selectors from './selectors.js';
 import style from './style.module.css';
 
 
 const clampMargin = 20; // with respect to <svg> dimensions
+const [minLinkWidth, maxLinkWidth] = [1, 6];
 const forceStrengths = {
   charge: -35,
   collide: 50,
@@ -21,6 +24,7 @@ const forceStrengths = {
 export default function render(svg, data, setFocused) {
   const {width, height} = svg.getBoundingClientRect();
 
+  renderLegend(svg, data.links);
   const links = renderLinks(svg, data.links);
   const nodes = renderNodes(svg, data.nodes);
   const simulation = setupSimulation(width, height, nodes, links, data);
@@ -155,6 +159,11 @@ function renderNodes(svg, nodes) {
  * @return  {d3.selection} The links d3 selection.
  */
 function renderLinks(svg, links) {
+  const maxCount = Math.max(...links.map((d) => d.count));
+  const lineSize = d3.scaleLinear()
+      .domain([0, maxCount])
+      .range([minLinkWidth, maxLinkWidth]);
+
   d3.select(svg).selectAll('line.'+selectors.genericLink)
       .data(links)
       .enter().append('line')
@@ -165,9 +174,45 @@ function renderLinks(svg, links) {
             .classed(selectors.linkIdentifier(d.target), true);
       });
   const linksG = d3.select(svg).selectAll('line.'+selectors.genericLink)
-      .attr('stroke-width', (d) => 2.5 * d.count);
+      .attr('stroke-width', (d) => lineSize(d.count));
 
   return linksG;
+}
+
+/**
+ * Render link stroke width legend.
+ * @param   {DOMNode} svg The DOM svg node.
+ * @param   {object} links The network data for network links.
+ */
+function renderLegend(svg, links) {
+  const maxCount = Math.max(...links.map((d) => d.count));
+  const lineSize = d3.scaleLinear()
+      .domain([0, maxCount])
+      .range([minLinkWidth, maxLinkWidth]);
+
+  console.log(lineSize.domain(), lineSize.range());
+
+  const legendSizeLine = d3.legendSize()
+      .scale(lineSize)
+      .shape('line')
+      .orient('horizontal')
+      .labelWrap(30)
+      .shapeWidth(40)
+      .labelAlign('middle')
+      .shapePadding(10);
+
+  d3.select(svg).select('#legend')
+      .attr('transform', 'translate(20, 20)')
+      .call(legendSizeLine)
+      .selectAll('.cell')
+      .each(function(d) {
+        d3.select(this) // eslint-disable-line no-invalid-this
+            .select('line')
+            .attr('stroke', 'var(--secondary)');
+        d3.select(this) // eslint-disable-line no-invalid-this
+            .select('text')
+            .attr('fill', 'var(--on-surface)');
+      });
 }
 
 const clamp = (x, lo, hi) => Math.max(lo, Math.min(x, hi));

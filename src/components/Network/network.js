@@ -29,6 +29,7 @@ export default function Network({data, focused, setFocused}) {
       [focused]);
 
   return <svg ref={svgRef} className={style.network}>
+    <g id="legend"></g>
   </svg>;
 }
 
