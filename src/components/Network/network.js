@@ -17,13 +17,14 @@ export default function Network({data, focused, setFocused}) {
   }
 
   const svgRef = useRef();
-  useEffect(
-    () => {
-      render(svgRef.current, data, setFocused);
-    }, // effect
-    [data]);
 
-  useEffect(() => handleFocus(svgRef.current, focused), [focused]);
+  useEffect( // render node-link graph
+      () => render(svgRef.current, data, setFocused),
+      [data]);
+
+  useEffect( // highlight focused nodes
+      () => handleFocus(svgRef.current, focused),
+      [focused]);
 
   return <svg ref={svgRef} className={style.network}>
   </svg>;
@@ -31,4 +32,6 @@ export default function Network({data, focused, setFocused}) {
 
 Network.propTypes = {
   data: PropTypes.object,
+  focus: PropTypes.string,
+  setFocused: PropTypes.func,
 };
