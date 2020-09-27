@@ -100,7 +100,7 @@ export default function(json) {
     }
 
     return withPorts;
-  }).forEach(link => {
+  }).forEach((link) => {
     const id =
       `${link.source}-${link.target}`;
     if (links?.[id] === undefined) {
