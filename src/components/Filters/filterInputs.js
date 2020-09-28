@@ -202,7 +202,7 @@ function OutgoingTrafficInput({onAdd}) {
  * @return {React.Component} A react component.
  */
 function IpVersionInput({onAdd}) {
-  const [version, setVersion] = useState(0);
+  const [version, setVersion] = useState('IPv4');
 
   const filterFunction =
   (d) => d.type.startsWith(version);
