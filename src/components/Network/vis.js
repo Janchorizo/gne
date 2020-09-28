@@ -170,9 +170,10 @@ function renderLinks(svg, links) {
 
   let linksG = d3.select(svg)
       .selectAll('line.'+selectors.genericLink)
-      .data(links);
-  linksG.exit().remove();
-  linksG.enter().append('line')
+      .remove()
+  linksG = d3.select(svg)
+      .selectAll('line.'+selectors.genericLink)
+      .data(links).enter().append('line')
       .classed(selectors.genericLink, true)
       .each(function(d) {
         d3.select(this) // eslint-disable-line no-invalid-this
