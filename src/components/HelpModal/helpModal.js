@@ -27,6 +27,14 @@ export default function HelpModal() {
         GNE is a tool intended to facilitate the explocartion
         of Graphviz output network graphs.
       </p>
+      <i>
+        Copy icon made by <a href="https://www.flaticon.com/authors/smartline"
+           title="Smartline">
+          Smartline
+        </a> from <a href="https://www.flaticon.com/" title="Flaticon">
+          www.flaticon.com
+        </a>
+      </i>
     </div>
   </div>;
 }

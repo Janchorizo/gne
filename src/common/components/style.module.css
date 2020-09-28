@@ -2,3 +2,10 @@
 cursor: pointer;
 margin-left: var(--space-sm);
 }
+.clipboard svg{
+height: 1em;
+fill: var(--primary-dark);
+}
+.clipboard:hover svg{
+    fill: var(--primary);
+}
