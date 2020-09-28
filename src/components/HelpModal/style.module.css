@@ -5,6 +5,11 @@
   height: 100%;
   width: 50%;
 }
+.helpModal ol,
+.helpModal ul{
+  margin-left: var(--space-lg);
+  max-width: 48em;
+}
 .helpModal .toggle{
   height: 100%;
   display: flex;
