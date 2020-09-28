@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import {TopBar, Workspace, Filters} from 'components';
-import {processNetwork} from 'common/helpers';
 
 import style from './style.module.css';
 import lightTheme from 'themes/light.module.css';
